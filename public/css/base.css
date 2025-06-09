@@ -1,0 +1,104 @@
+/* Base styles and utilities */
+.gradient-bg { 
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #dc2626 100%); 
+}
+
+.card-hover { 
+    transition: all 0.3s ease; 
+}
+
+.card-hover:hover { 
+    transform: translateY(-4px); 
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); 
+}
+
+.roast-flame { 
+    color: #f97316; 
+}
+
+.fire-accent {
+    color: #f97316;
+}
+
+.fire-bg {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+}
+
+.burn-shadow {
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
+}
+
+.heat-glow {
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.4);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #ea580c, #dc2626);
+    transform: translateY(-2px);
+}
+
+/* Loading animations */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #f97316;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ea580c;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(0%); }
+    100% { transform: translateX(100%); }
+}
+
+.ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+@keyframes ripple-animation {
+    to {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+    }
+} 

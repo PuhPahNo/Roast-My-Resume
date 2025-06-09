@@ -1,0 +1,67 @@
+/* Upload Area Styles */
+.upload-area { 
+    border: 2px dashed #d1d5db; 
+    transition: all 0.3s ease;
+    background: linear-gradient(145deg, #f8fafc, #f1f5f9);
+}
+
+.upload-area:hover { 
+    border-color: #f97316; 
+    background: linear-gradient(145deg, #fff7ed, #fed7aa);
+}
+
+.upload-area.dragover { 
+    border-color: #ea580c; 
+    background: #fed7aa; 
+}
+
+.upload-area .cta-button {
+    margin-top: 1rem;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.mobile-menu.open {
+    transform: translateX(0);
+}
+
+/* Logo Grid */
+.logo-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    align-items: center;
+    justify-items: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.logo-grid:hover {
+    opacity: 1;
+}
+
+.company-logo {
+    height: 3rem;
+    width: auto;
+    filter: grayscale(0%);
+    transition: all 0.3s ease;
+    opacity: 1;
+}
+
+.company-logo:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.tesla-logo {
+    height: 2rem;
+}
+
+.apple-logo {
+    height: 2.5rem;
+} 

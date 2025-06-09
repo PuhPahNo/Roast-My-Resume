@@ -1,0 +1,741 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Roast My Resume - Get Brutally Honest Resume Feedback</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Get expert resume feedback in 5 minutes. Upload your resume and receive actionable insights to land more interviews. Professional, honest, and effective.">
+    
+    <!-- Tailwind and Font Awesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../public/css/main.css">
+</head>
+
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-fire roast-flame text-2xl"></i>
+                    <span class="text-2xl font-bold text-gray-900">RoastMyResume</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
+                    <a href="#examples" class="text-gray-600 hover:text-gray-900 transition-colors">Examples</a>
+                    <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
+                </div>
+                <button class="md:hidden" id="mobile-menu-button">
+                    <i class="fas fa-bars text-gray-600"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50 md:hidden" id="mobile-menu">
+        <div class="flex justify-between items-center p-4 border-b">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-fire roast-flame text-xl"></i>
+                <span class="text-lg font-bold text-gray-900">RoastMyResume</span>
+            </div>
+            <button id="close-mobile-menu">
+                <i class="fas fa-times text-gray-600 text-xl"></i>
+            </button>
+        </div>
+        <div class="p-4 space-y-4">
+            <a href="#features" class="block text-gray-600 hover:text-gray-900 transition-colors text-lg mobile-nav-link">Features</a>
+            <a href="#examples" class="block text-gray-600 hover:text-gray-900 transition-colors text-lg mobile-nav-link">Examples</a>
+            <a href="#pricing" class="block text-gray-600 hover:text-gray-900 transition-colors text-lg mobile-nav-link">Pricing</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="gradient-bg text-white py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left">
+                    <h1 class="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+                        Get Your Resume
+                        <span class="relative">
+                            <span class="text-orange-300">Roasted</span>
+                            <i class="fas fa-fire absolute -top-3 -right-10 text-orange-400 text-3xl"></i>
+                        </span>
+                    </h1>
+                    
+                    <!-- Free indicator as subtitle -->
+                    <div class="flex items-center justify-center lg:justify-start mb-6">
+                        <span class="inline-flex items-center bg-yellow-400 text-gray-800 px-4 py-2 rounded-full text-sm font-semibold">
+                            Free
+                        </span>
+                        <span class="text-white ml-3 text-lg">
+                            No signup required • Instant results
+                        </span>
+                    </div>
+                    
+                    <p class="text-2xl mb-10 text-blue-100">
+                        AI-powered resume analysis in seconds. Upload your resume and get instant, brutally honest feedback to land more interviews.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <button class="bg-white text-orange-600 px-10 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors heat-glow">
+                            Upload Resume <i class="fas fa-upload ml-2"></i>
+                        </button>
+                        <button class="border-2 border-white text-white px-10 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-orange-600 transition-colors">
+                            Try Sample Resume
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Upload Area -->
+                <div class="bg-white rounded-2xl p-12 shadow-2xl">
+                    <div class="upload-area border-2 border-dashed border-gray-300 rounded-xl p-12 text-center cursor-pointer min-h-64" id="uploadArea">
+                        <div class="space-y-6">
+                            <div class="w-24 h-24 mx-auto bg-orange-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-file-pdf text-4xl text-orange-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-xl font-semibold text-gray-700">Drop your resume here</p>
+                                <p class="text-lg text-gray-500">or click to browse</p>
+                            </div>
+                            <p class="text-base text-gray-400">PDF, DOC, DOCX up to 10MB</p>
+                        </div>
+                    </div>
+                    <input type="file" id="fileInput" class="hidden" accept=".pdf,.doc,.docx">
+                    
+                    <div class="mt-6 text-center">
+                        <p class="text-sm text-gray-500">
+                            By uploading, you agree to our 
+                            <a href="#" class="text-orange-600 hover:underline">Terms of Service</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Used By Section -->
+    <section class="py-16 bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <p class="text-lg text-gray-600 mb-8">
+                    Built for professionals at top companies worldwide
+                </p>
+                <div class="logo-grid">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" 
+                         alt="Amazon" class="company-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" 
+                         alt="Google" class="company-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" 
+                         alt="Apple" class="company-logo apple-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" 
+                         alt="Netflix" class="company-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Tesla_T_symbol.svg" 
+                         alt="Tesla" class="company-logo tesla-logo">
+                </div>
+                <div class="mt-8 text-center">
+                    <p class="text-sm text-gray-500">
+                        Join thousands of professionals getting <span class="font-semibold fire-accent">instant resume feedback</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Resume Analysis -->
+    <section id="examples" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                    See What We'd Roast <span class="fire-accent">🔥</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Hover over each section below to see the issues we'd catch in your resume. Switch between "Before" and "After" to see the transformation.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                <!-- Interactive Resume Preview -->
+                <div class="resume-preview p-6" id="resumePreview">
+                    <!-- Tab Buttons -->
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="before" id="beforeTab">
+                            🔥 Before Roast
+                        </button>
+                        <button class="tab-button" data-tab="after" id="afterTab">
+                            🚀 After Roast
+                        </button>
+                    </div>
+                    
+                    <!-- Resume Content -->
+                    <div id="beforeContent">
+                        <div class="resume-section" data-issue="Generic and boring">
+                            <h3 class="font-semibold text-gray-900">OBJECTIVE</h3>
+                            <p class="text-sm text-gray-600 mt-1">Seeking a challenging position where I can utilize my skills</p>
+                            <div class="issue-highlight">Generic! 😴</div>
+                        </div>
+                        
+                        <div class="resume-section" data-issue="Wall of text - recruiters hate this">
+                            <h3 class="font-semibold text-gray-900">EXPERIENCE</h3>
+                            <p class="text-sm text-gray-600 mt-1"><strong>Software Developer</strong></p>
+                            <p class="text-xs text-gray-500">Responsible for developing applications and working with team members to complete projects on time and help clients achieve their goals through innovative solutions</p>
+                            <div class="issue-highlight">Too wordy! 📄</div>
+                        </div>
+                        
+                        <div class="resume-section" data-issue="No numbers = no impact">
+                            <h3 class="font-semibold text-gray-900">ACHIEVEMENTS</h3>
+                            <p class="text-sm text-gray-600 mt-1">• Improved system performance</p>
+                            <p class="text-sm text-gray-600">• Led successful projects</p>
+                            <div class="issue-highlight">Where are the numbers? 📊</div>
+                        </div>
+                        
+                        <div class="resume-section" data-issue="Skills listed without context">
+                            <h3 class="font-semibold text-gray-900">SKILLS</h3>
+                            <p class="text-sm text-gray-600 mt-1">JavaScript, Python, Java, HTML, CSS, React, Node.js, MongoDB, SQL, Git</p>
+                            <div class="issue-highlight">Just a list! 📝</div>
+                        </div>
+                    </div>
+                    
+                    <div id="afterContent" style="display: none;">
+                        <div class="resume-section improved">
+                            <h3 class="font-semibold text-gray-900">PROFESSIONAL SUMMARY</h3>
+                            <p class="text-sm text-gray-600 mt-1">Full-stack developer with 3+ years building scalable web applications that serve 10K+ daily users</p>
+                            <div class="improvement-badge">Much better! ✨</div>
+                        </div>
+                        
+                        <div class="resume-section improved">
+                            <h3 class="font-semibold text-gray-900">EXPERIENCE</h3>
+                            <p class="text-sm text-gray-600 mt-1"><strong>Senior Software Developer</strong></p>
+                            <p class="text-xs text-gray-500">• Built React app serving 15K+ users, reducing load time by 40%<br>• Led team of 4 developers to deliver 12 features ahead of schedule</p>
+                            <div class="improvement-badge">Quantified! 📈</div>
+                        </div>
+                        
+                        <div class="resume-section improved">
+                            <h3 class="font-semibold text-gray-900">KEY ACHIEVEMENTS</h3>
+                            <p class="text-sm text-gray-600 mt-1">• Increased system performance by 60% through database optimization</p>
+                            <p class="text-sm text-gray-600">• Delivered $2M+ revenue project 3 weeks ahead of deadline</p>
+                            <div class="improvement-badge">Impact shown! 💰</div>
+                        </div>
+                        
+                        <div class="resume-section improved">
+                            <h3 class="font-semibold text-gray-900">TECHNICAL EXPERTISE</h3>
+                            <p class="text-sm text-gray-600 mt-1"><strong>Frontend:</strong> React (3 years), Vue.js (2 years)<br><strong>Backend:</strong> Node.js, Python Django<br><strong>Database:</strong> PostgreSQL, MongoDB</p>
+                            <div class="improvement-badge">Organized! 🎯</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Roast Meter -->
+                    <div class="roast-meter">
+                        <div class="roast-progress poor" id="roastProgress"></div>
+                    </div>
+                                          <div class="star-rating" id="starRating">
+                          <span class="star filled">★</span>
+                          <span class="star">★</span>
+                          <span class="star">★</span>
+                          <span class="star">★</span>
+                          <span class="star">★</span>
+                      </div>
+                    <div class="rating-text" id="ratingText">Second Look (Pile of Trash)</div>
+                </div>
+                
+                <!-- Benefits -->
+                <div class="space-y-8">
+                    <div class="text-center lg:text-left">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                            Every Issue We Find = More Interviews
+                        </h3>
+                        <p class="text-gray-600 mb-6">
+                            Our expert reviewers catch the mistakes that are costing you interviews. See how we transform weak resumes into interview magnets.
+                        </p>
+                    </div>
+                    
+                    <div class="grid gap-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="feature-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-2">ATS Optimization</h4>
+                                <p class="text-gray-600">We ensure your resume gets past the robots and into human hands with proper formatting and keywords.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-2">Impact Quantification</h4>
+                                <p class="text-gray-600">Transform vague descriptions into compelling achievements with specific numbers and results.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="feature-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-2">Strategic Positioning</h4>
+                                <p class="text-gray-600">Position yourself as the obvious choice with industry-specific language and targeted content.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="feature-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-2">Brutal Honesty</h4>
+                                <p class="text-gray-600">No sugar-coating. We tell you exactly what's wrong and how to fix it for maximum impact.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                    Why Job Seekers Choose Us
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Professional feedback that actually helps you land interviews
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-8 card-hover shadow-lg">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Instant AI Analysis</h3>
+                    <p class="text-gray-600">Upload your resume and get comprehensive feedback in seconds, powered by advanced AI.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 card-hover shadow-lg">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">AI-Powered Insights</h3>
+                    <p class="text-gray-600">Advanced AI trained on thousands of successful resumes and hiring patterns.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 card-hover shadow-lg">
+                    <div class="feature-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Actionable Insights</h3>
+                    <p class="text-gray-600">Get specific, implementable recommendations, not generic advice.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 card-hover shadow-lg">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Privacy Protected</h3>
+                    <p class="text-gray-600">Your resume is encrypted and automatically deleted after review.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 card-hover shadow-lg">
+                    <div class="feature-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Industry Specific</h3>
+                    <p class="text-gray-600">Tailored feedback for tech, finance, healthcare, and 20+ other industries.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 card-hover shadow-lg">
+                    <div class="feature-icon">
+                        <i class="fas fa-redo-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Unlimited Revisions</h3>
+                    <p class="text-gray-600">Keep improving with multiple rounds of feedback until it's perfect.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                    Success Stories
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Real people, real results, real job offers
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="testimonial-card rounded-2xl p-8 shadow-lg">
+                                          <div class="flex items-center mb-4">
+                          <img src="/public/assets/images/testimonials/testimonial.png" 
+                               alt="Sam" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Sammy</h4>
+                            <p class="text-sm text-gray-600">Accountant</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        "I knew my resume needed work, but I didn't know where to start. This tool gave me the confidence to make the changes I needed to land my dream job."
+                    </p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card rounded-2xl p-8 shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="/public/assets/images/testimonials/testimonial.png" 
+                             alt="Jason" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Jason</h4>
+                            <p class="text-sm text-gray-600">Industrial Engineer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        "The feedback was brutally honest but incredibly helpful. Fixed all my weak points and got 3 job offers in one month."
+                    </p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card rounded-2xl p-8 shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&h=60&fit=crop&crop=face" 
+                             alt="Noelle" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Noelle</h4>
+                            <p class="text-sm text-gray-600">Special Education Teacher</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        "I had to open myself up to the feedback, but it was worth it. I got 3 interviews in 2 weeks."
+                    </p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                    Simple, Transparent Pricing
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Choose the level of feedback that fits your needs
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-orange-500 relative burn-shadow">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 gradient-bg text-white px-4 py-1 rounded-full text-sm font-semibold">
+                        Free Forever
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">AI Resume Roast</h3>
+                    <div class="text-3xl font-bold fire-accent mb-4">FREE</div>
+                    <ul class="space-y-3 text-gray-600 mb-8">
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Instant AI feedback</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Format & layout review</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> ATS optimization tips</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Unlimited roasts</li>
+                    </ul>
+                    <a href="#hero" class="w-full gradient-bg text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity pricing-btn block text-center">
+                        Get Your Free Roast
+                    </a>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">AI Resume Boost</h3>
+                    <div class="text-3xl font-bold fire-accent mb-4">$5</div>
+                    <ul class="space-y-3 text-gray-600 mb-8">
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Everything in Free</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> AI-powered rewrite</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Optimized bullet points</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Industry keywords</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Download ready resume</li>
+                    </ul>
+                    <button class="w-full bg-gray-200 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors pricing-btn">
+                        Boost My Resume
+                    </button>
+                </div>
+                
+                <div class="bg-gray-50 rounded-2xl p-8 shadow-lg relative opacity-75">
+                    <!-- Coming Soon Badge -->
+                    <div class="absolute -top-3 -right-3 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
+                        Coming Soon
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Expert Review</h3>
+                    <div class="text-3xl font-bold text-gray-500 mb-4">$29</div>
+                    <ul class="space-y-3 text-gray-500 mb-8">
+                        <li class="flex items-center"><i class="fas fa-check text-gray-400 mr-2"></i> Everything in AI Boost</li>
+                        <li class="flex items-center"><i class="fas fa-check text-gray-400 mr-2"></i> 30-min video call</li>
+                        <li class="flex items-center"><i class="fas fa-check text-gray-400 mr-2"></i> LinkedIn profile review</li>
+                        <li class="flex items-center"><i class="fas fa-check text-gray-400 mr-2"></i> Personal career strategy</li>
+                        <li class="flex items-center"><i class="fas fa-check text-gray-400 mr-2"></i> Interview prep tips</li>
+                    </ul>
+                    <button class="w-full bg-gray-300 text-gray-500 py-3 rounded-lg font-semibold cursor-not-allowed" disabled>
+                        Coming Soon
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <div class="flex items-center justify-center space-x-3 mb-4">
+                    <i class="fas fa-fire text-orange-500 text-3xl"></i>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900">
+                        Burning Questions?
+                    </h2>
+                    <i class="fas fa-fire text-orange-500 text-3xl"></i>
+                </div>
+                <p class="text-lg text-gray-600">
+                    Get the hot answers to your resume roasting questions
+                </p>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="faq-item border-2 border-orange-100 rounded-xl overflow-hidden bg-gradient-to-r from-orange-50 to-red-50">
+                    <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gradient-to-r hover:from-orange-100 hover:to-red-100 transition-colors">
+                        <span class="text-lg font-semibold text-gray-900">🔐 How secure is my resume data?</span>
+                        <i class="fas fa-chevron-down text-orange-500 transform transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-answer hidden p-6 pt-0 text-gray-700">
+                        Your resume is completely secure. We use HTTPS encryption for all uploads, process files in isolated environments, 
+                        and automatically delete your resume immediately after analysis. We never store your documents permanently or 
+                        share your personal information with third parties.
+                    </div>
+                </div>
+                
+                <div class="faq-item border-2 border-orange-100 rounded-xl overflow-hidden bg-gradient-to-r from-orange-50 to-red-50">
+                    <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gradient-to-r hover:from-orange-100 hover:to-red-100 transition-colors">
+                        <span class="text-lg font-semibold text-gray-900">📄 What file formats are supported?</span>
+                        <i class="fas fa-chevron-down text-orange-500 transform transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-answer hidden p-6 pt-0 text-gray-700">
+                        We support PDF, DOC, and DOCX files up to 10MB in size. Your resume should be in a standard format with readable text. 
+                        Password-protected files cannot be processed. For best results, use a clean, well-formatted resume with clear sections.
+                    </div>
+                </div>
+                
+                <div class="faq-item border-2 border-orange-100 rounded-xl overflow-hidden bg-gradient-to-r from-orange-50 to-red-50">
+                    <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gradient-to-r hover:from-orange-100 hover:to-red-100 transition-colors">
+                        <span class="text-lg font-semibold text-gray-900">🎯 How accurate is the AI analysis?</span>
+                        <i class="fas fa-chevron-down text-orange-500 transform transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-answer hidden p-6 pt-0 text-gray-700">
+                        Our AI is trained on thousands of successful resumes and hiring patterns. While it provides valuable insights about 
+                        formatting, content structure, and common issues, it's designed to complement, not replace, human judgment. 
+                        The feedback is most effective when combined with your industry knowledge and career goals.
+                    </div>
+                </div>
+                
+                <div class="faq-item border-2 border-orange-100 rounded-xl overflow-hidden bg-gradient-to-r from-orange-50 to-red-50">
+                    <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gradient-to-r hover:from-orange-100 hover:to-red-100 transition-colors">
+                        <span class="text-lg font-semibold text-gray-900">♻️ Can I get multiple reviews?</span>
+                        <i class="fas fa-chevron-down text-orange-500 transform transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-answer hidden p-6 pt-0 text-gray-700">
+                        Absolutely! Our free AI roast service has no limits. You can upload and analyze as many versions of your resume 
+                        as you want. This is perfect for testing different formats, refining content, or comparing multiple resume versions 
+                        before applying to jobs.
+                    </div>
+                </div>
+                
+                <div class="faq-item border-2 border-orange-100 rounded-xl overflow-hidden bg-gradient-to-r from-orange-50 to-red-50">
+                    <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gradient-to-r hover:from-orange-100 hover:to-red-100 transition-colors">
+                        <span class="text-lg font-semibold text-gray-900">⚡ How long does the analysis take?</span>
+                        <i class="fas fa-chevron-down text-orange-500 transform transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-answer hidden p-6 pt-0 text-gray-700">
+                        Our AI analysis is lightning fast! Most resumes are processed and analyzed within 5-10 seconds of upload. 
+                        You'll receive instant feedback with specific recommendations, quality scores, and actionable improvements 
+                        to make your resume more effective.
+                    </div>
+                </div>
+                
+                <div class="faq-item border-2 border-orange-100 rounded-xl overflow-hidden bg-gradient-to-r from-orange-50 to-red-50">
+                    <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gradient-to-r hover:from-orange-100 hover:to-red-100 transition-colors">
+                        <span class="text-lg font-semibold text-gray-900">🔥 What makes this different from other tools?</span>
+                        <i class="fas fa-chevron-down text-orange-500 transform transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-answer hidden p-6 pt-0 text-gray-700">
+                        Unlike generic resume builders, our AI provides brutally honest, specific feedback about what's actually wrong 
+                        with your resume. We focus on real issues that cost you interviews: poor formatting, weak bullet points, 
+                        missing keywords, and ATS optimization problems. Plus, it's completely free with no hidden costs.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg text-white py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl lg:text-4xl font-bold mb-6">
+                Ready to Transform Your Resume?
+            </h2>
+            <p class="text-xl mb-8 text-blue-100">
+                Join the revolution in resume optimization with instant AI-powered feedback
+            </p>
+            <div class="flex justify-center">
+                <button class="bg-white text-orange-600 px-12 py-5 rounded-lg font-semibold text-xl hover:bg-gray-100 transition-colors cta-btn heat-glow">
+                    Get Your Free Roast Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-fire roast-flame text-xl"></i>
+                        <span class="text-lg font-bold">RoastMyResume</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Expert resume feedback to help you land more interviews and advance your career.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Services</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Roast My Resume</a></li>
+                        <li><a href="https://resume-boost-ai.onrender.com" target="_blank" class="hover:text-white transition-colors">AI Resume Booster</a></li>
+                        <li>
+                            <span class="hover:text-white transition-colors">LinkedIn Profile</span>
+                            <span class="text-xs bg-orange-600 text-white px-2 py-1 rounded-full ml-2">Coming Soon</span>
+                        </li>
+                        <li>
+                            <span class="hover:text-white transition-colors">Interview Prep</span>
+                            <span class="text-xs bg-orange-600 text-white px-2 py-1 rounded-full ml-2">Coming Soon</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="https://www.canva.com/resumes/templates/" target="_blank" class="hover:text-white transition-colors">Resume Templates</a></li>
+                        <li><a href="https://www.linkedin.com/advice/career/" target="_blank" class="hover:text-white transition-colors">Career Blog</a></li>
+                        <li><a href="https://www.indeed.com/career-advice/finding-a-job" target="_blank" class="hover:text-white transition-colors">Job Search Tips</a></li>
+                        <li><a href="https://www.bls.gov/ooh/" target="_blank" class="hover:text-white transition-colors">Industry Guides</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="about.html" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 RoastMyResume. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Progress Modal -->
+    <div id="progressModal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 text-center">
+            <div class="mb-6">
+                <i class="fas fa-chart-line text-orange-500 text-4xl mb-4"></i>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Roasting Your Resume...</h3>
+                <p class="text-gray-600" id="progressText">Initializing analysis...</p>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="w-full bg-gray-200 rounded-full h-3 mb-6">
+                <div id="progressBar" class="bg-gradient-to-r from-orange-500 to-red-600 h-3 rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div>
+            </div>
+            
+            <!-- Email Gate (Hidden Initially) -->
+            <div id="emailGate" class="hidden">
+                <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
+                    <h4 class="font-bold text-orange-800 mb-2">🔒 Unlock Your Full Roast!</h4>
+                    <p class="text-orange-700 text-sm">Enter your email to see the complete analysis</p>
+                </div>
+                
+                <form id="emailForm" class="space-y-4">
+                    <input 
+                        type="email" 
+                        id="emailInput" 
+                        placeholder="Enter your email address"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                        required
+                    >
+                    <button 
+                        type="submit" 
+                        class="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors"
+                    >
+                        Get My Roast Results
+                    </button>
+                </form>
+                
+                <p class="text-xs text-gray-500 mt-3">
+                    We respect your privacy. No spam, just your roast results.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay (Kept for fallback) -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-black bg-opacity-70 z-50 flex-col items-center justify-center hidden">
+        <div class="loader"></div>
+        <p class="text-white text-2xl mt-4">Roasting your resume...</p>
+        <p class="text-white text-lg">This might take a moment.</p>
+    </div>
+
+    <!-- JavaScript Modules -->
+    <script src="../../public/js/upload-handler.js"></script>
+    <script src="../../public/js/progress-modal.js"></script>
+    <script src="../../public/js/ui-components.js"></script>
+    <script src="../../public/js/app.js"></script>
+</body>
+</html> 

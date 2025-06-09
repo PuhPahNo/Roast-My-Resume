@@ -1,0 +1,6 @@
+/* Main stylesheet - imports all components */
+@import url('base.css');
+@import url('upload.css');
+@import url('resume-preview.css');
+@import url('roast-results.css');
+@import url('responsive.css'); 

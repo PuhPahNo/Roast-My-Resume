@@ -1,0 +1,123 @@
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+    .score-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .analysis-overview,
+    .analysis-section {
+        padding: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .roast-tabs {
+        gap: 0.25rem;
+    }
+    
+    .roast-tab {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .roast-list li {
+        padding: 0.75rem;
+    }
+    
+    .roast-card {
+        padding: 1.5rem;
+    }
+
+    .roast-section {
+        padding: 0.75rem 4rem 0.75rem 0.75rem;
+    }
+    
+    .roast-category {
+        padding: 1rem;
+    }
+    
+    #dynamic-roast-content h1 {
+        font-size: 2rem;
+    }
+    
+    #dynamic-roast-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .logo-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+
+    .company-logo {
+        height: 2rem;
+    }
+
+    .tesla-logo {
+        height: 1.5rem;
+    }
+
+    .apple-logo {
+        height: 2rem;
+    }
+
+    .tab-buttons {
+        flex-direction: column;
+    }
+
+    .tab-button {
+        border-bottom: none;
+        border-right: 2px solid transparent;
+    }
+
+    .tab-button.active {
+        border-right-color: #f97316;
+        border-bottom-color: transparent;
+    }
+
+    .feature-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1rem;
+    }
+
+    #roast-result-container {
+        padding: 1rem;
+    }
+
+    #roast-result-container h1 {
+        font-size: 2rem;
+    }
+
+    .overall-score {
+        padding: 1.5rem;
+    }
+
+    .score-value {
+        font-size: 3rem;
+    }
+
+    .roast-summary {
+        padding: 1.5rem;
+    }
+
+    .improvement-card {
+        padding: 1rem;
+    }
+
+    /* Mobile button layout for upload area */
+    .upload-area .flex.justify-center.space-x-4 {
+        flex-direction: column;
+        space-x: 0;
+        gap: 0.75rem;
+    }
+
+    .upload-area button {
+        width: 100%;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+} 
