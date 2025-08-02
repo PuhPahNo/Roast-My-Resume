@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Disallow result pages from being indexed (user-specific content)
+Disallow: /src/pages/roast-result.html
+
+# Allow access to static resources
+Allow: /public/css/
+Allow: /public/js/
+Allow: /static/
+
+# Sitemap location
+Sitemap: https://your-domain.com/sitemap.xml
+
+# Crawl delay to be respectful to search engines
+Crawl-delay: 1
