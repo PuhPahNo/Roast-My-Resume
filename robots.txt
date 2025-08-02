@@ -10,7 +10,7 @@ Allow: /public/js/
 Allow: /static/
 
 # Sitemap location
-Sitemap: https://your-domain.com/sitemap.xml
+Sitemap: https://roast-my-resume.com/sitemap.xml
 
 # Crawl delay to be respectful to search engines
 Crawl-delay: 1

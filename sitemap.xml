@@ -4,7 +4,7 @@
     
     <!-- Homepage - High Priority -->
     <url>
-        <loc>https://your-domain.com/</loc>
+        <loc>https://roast-my-resume.com/</loc>
         <lastmod>2025-01-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
@@ -12,7 +12,7 @@
     
     <!-- About Page -->
     <url>
-        <loc>https://your-domain.com/src/pages/about.html</loc>
+        <loc>https://roast-my-resume.com/src/pages/about.html</loc>
         <lastmod>2025-01-04</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
@@ -20,7 +20,7 @@
     
     <!-- Contact Page -->
     <url>
-        <loc>https://your-domain.com/src/pages/contact.html</loc>
+        <loc>https://roast-my-resume.com/src/pages/contact.html</loc>
         <lastmod>2025-01-04</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
@@ -28,7 +28,7 @@
     
     <!-- Privacy Policy -->
     <url>
-        <loc>https://your-domain.com/src/pages/privacy.html</loc>
+        <loc>https://roast-my-resume.com/src/pages/privacy.html</loc>
         <lastmod>2025-01-04</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
@@ -36,7 +36,7 @@
     
     <!-- Terms of Service -->
     <url>
-        <loc>https://your-domain.com/src/pages/terms.html</loc>
+        <loc>https://roast-my-resume.com/src/pages/terms.html</loc>
         <lastmod>2025-01-04</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
