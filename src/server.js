@@ -22,6 +22,9 @@ async function initQueue() {
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Trust proxy for Render/Heroku/etc (needed for rate limiting behind reverse proxy)
+app.set('trust proxy', 1);
+
 // --- API Key Check ---
 if (!process.env.GOOGLE_API_KEY) {
     console.error("FATAL ERROR: GOOGLE_API_KEY is not defined in your .env file.");
