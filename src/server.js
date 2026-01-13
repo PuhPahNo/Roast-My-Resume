@@ -426,7 +426,7 @@ app.post('/api/roast', roastLimiter, upload.single('resume'), async (req, res) =
         // Add to queue for controlled concurrency
         const result = await roastQueue.add(async () => {
             const model = genAI.getGenerativeModel({ 
-                model: "gemini-2.5-flash",
+                model: "gemini-2.0-flash",
                 safetySettings: [
                     { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
                     { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
