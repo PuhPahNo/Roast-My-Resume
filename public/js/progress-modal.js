@@ -60,10 +60,11 @@ class ProgressModal {
             this.progressText.textContent = 'Almost done! Just need your email...';
             this.emailGate.classList.remove('hidden');
             
-            // Setup email form handler
+            // Setup email form handler (use { once: true } to prevent duplicate listeners)
             const emailForm = document.getElementById('emailForm');
-            if (emailForm) {
-                emailForm.addEventListener('submit', (e) => this.handleEmailSubmit(e));
+            if (emailForm && !emailForm.dataset.listenerAttached) {
+                emailForm.addEventListener('submit', (e) => this.handleEmailSubmit(e), { once: true });
+                emailForm.dataset.listenerAttached = 'true';
             }
         }
     }

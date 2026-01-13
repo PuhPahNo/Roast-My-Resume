@@ -36,7 +36,7 @@
     
     <!-- Tailwind and Font Awesome -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Tailwind Config -->
@@ -45,7 +45,7 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        'sans': ['Inter', 'sans-serif'],
+                        'sans': ['DM Sans', 'sans-serif'],
                     }
                 }
             }
@@ -114,8 +114,8 @@
                     <a href="#examples" class="text-gray-600 hover:text-gray-900 transition-colors">Examples</a>
                     <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
                 </div>
-                <button class="md:hidden" id="mobile-menu-button">
-                    <i class="fas fa-bars text-gray-600"></i>
+                <button class="md:hidden" id="mobile-menu-button" aria-label="Open mobile menu" aria-expanded="false">
+                    <i class="fas fa-bars text-gray-600" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
@@ -128,8 +128,8 @@
                 <i class="fas fa-fire roast-flame text-xl"></i>
                 <span class="text-lg font-bold text-gray-900">RoastMyResume</span>
             </div>
-            <button id="close-mobile-menu">
-                <i class="fas fa-times text-gray-600 text-xl"></i>
+            <button id="close-mobile-menu" aria-label="Close mobile menu">
+                <i class="fas fa-times text-gray-600 text-xl" aria-hidden="true"></i>
             </button>
         </div>
         <div class="p-4 space-y-4">
@@ -186,10 +186,10 @@
                                 <p class="text-xl font-semibold text-gray-700">Drop your resume here</p>
                                 <p class="text-lg text-gray-500">or click to browse</p>
                             </div>
-                            <p class="text-base text-gray-400">PDF, DOC, DOCX up to 10MB</p>
+                            <p class="text-base text-gray-400">PDF files up to 10MB</p>
                         </div>
                     </div>
-                    <input type="file" id="fileInput" class="hidden" accept=".pdf,.doc,.docx">
+                    <input type="file" id="fileInput" class="hidden" accept=".pdf">
                     
                     <div class="mt-6 text-center">
                         <p class="text-sm text-gray-500">
@@ -617,8 +617,8 @@
                         <i class="fas fa-chevron-down text-orange-500 transform transition-transform duration-200"></i>
                     </button>
                     <div class="faq-answer hidden p-6 pt-0 text-gray-700">
-                        We support PDF, DOC, and DOCX files up to 10MB in size. Your resume should be in a standard format with readable text. 
-                        Password-protected files cannot be processed. For best results, use a clean, well-formatted resume with clear sections.
+                        We support PDF files up to 10MB in size. Your resume should be in a standard format with readable text. 
+                        Password-protected files cannot be processed. For best results, use a clean, well-formatted PDF resume with clear sections.
                     </div>
                 </div>
                 
@@ -747,7 +747,7 @@
             </div>
             
             <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-                <p>&copy; 2025 RoastMyResume. All rights reserved.</p>
+                <p>&copy; 2026 RoastMyResume. All rights reserved.</p>
             </div>
         </div>
     </footer>

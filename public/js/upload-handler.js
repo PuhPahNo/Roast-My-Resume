@@ -46,9 +46,9 @@ class UploadHandler {
     handleFile(file) {
         if (!file) return;
         
-        const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        const validTypes = ['application/pdf'];
         if (!validTypes.includes(file.type)) {
-            alert('Please upload a PDF, DOC, or DOCX file.');
+            alert('Please upload a PDF file. DOC/DOCX files are not currently supported.');
             return;
         }
         
@@ -113,7 +113,7 @@ class UploadHandler {
                     <p class="text-xl font-semibold text-gray-700">Drop your resume here</p>
                     <p class="text-lg text-gray-500">or click to browse</p>
                 </div>
-                <p class="text-base text-gray-400">PDF, DOC, DOCX up to 10MB</p>
+                <p class="text-base text-gray-400">PDF files up to 10MB</p>
             </div>
         `;
         this.currentFile = null;

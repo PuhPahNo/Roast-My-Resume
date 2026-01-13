@@ -83,6 +83,12 @@ class UIComponents {
         if (mobileMenuButton && mobileMenu && closeMobileMenu) {
             mobileMenuButton.addEventListener('click', () => mobileMenu.classList.add('open'));
             closeMobileMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+            
+            // Close menu when clicking nav links
+            const mobileNavLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+            });
         }
     }
 
