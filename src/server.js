@@ -219,7 +219,7 @@ function normalizeText(text) {
 
 async function extractPdfText(filePath) {
     const fileBuffer = fs.readFileSync(filePath);
-    const parser = new PDFParse(fileBuffer);
+    const parser = new PDFParse(new Uint8Array(fileBuffer));
     const parsed = await parser.getText();
     const normalized = normalizeText(parsed?.text || '');
     if (!normalized) {
