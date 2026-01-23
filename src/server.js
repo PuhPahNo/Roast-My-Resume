@@ -35,13 +35,19 @@ if (!process.env.GROQ_API_KEY) {
 }
 
 // --- Database Configuration ---
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: process.env.DB_SSL_MODE === 'require' ? { rejectUnauthorized: false } : false
-});
+let pool = null;
+if (process.env.DATABASE_URL) {
+    pool = new Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: process.env.DB_SSL_MODE === 'require' ? { rejectUnauthorized: false } : false
+    });
+} else {
+    console.warn('DATABASE_URL not set. Email capture will be disabled.');
+}
 
 // --- Database Functions ---
 async function initDB() {
+    if (!pool) return;
     try {
         await pool.query(`
             CREATE TABLE IF NOT EXISTS emails (
@@ -57,6 +63,9 @@ async function initDB() {
 }
 
 async function saveEmail(email) {
+    if (!pool) {
+        return { success: true, message: "Email capture disabled (no database)" };
+    }
     try {
         const existingEmail = await pool.query("SELECT email FROM emails WHERE email = $1", [email]);
         
