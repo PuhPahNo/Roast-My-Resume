@@ -1,11 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const multer = require('multer');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+const Groq = require('groq-sdk');
 const fs = require('fs');
 const path = require('path');
 const { Pool } = require('pg');
 const rateLimit = require('express-rate-limit');
+const pdfParse = require('pdf-parse');
 
 // Dynamic import for p-queue (ESM module)
 let PQueue;
@@ -14,7 +15,7 @@ let roastQueue;
 async function initQueue() {
     const pQueueModule = await import('p-queue');
     PQueue = pQueueModule.default;
-    // Limit concurrent Gemini API calls to prevent quota exhaustion
+    // Limit concurrent LLM calls to prevent quota exhaustion
     roastQueue = new PQueue({ concurrency: 3 });
     console.log('Queue initialized with concurrency limit of 3');
 }
@@ -26,10 +27,10 @@ const port = process.env.PORT || 3000;
 app.set('trust proxy', 1);
 
 // --- API Key Check ---
-if (!process.env.GOOGLE_API_KEY) {
-    console.error("FATAL ERROR: GOOGLE_API_KEY is not defined in your .env file.");
+if (!process.env.GROQ_API_KEY) {
+    console.error("FATAL ERROR: GROQ_API_KEY is not defined in your .env file.");
     console.error("Please ensure you have a .env file in the root directory with the following content:");
-    console.error("GOOGLE_API_KEY=YOUR_API_KEY");
+    console.error("GROQ_API_KEY=YOUR_API_KEY");
     process.exit(1);
 }
 
@@ -146,8 +147,8 @@ const upload = multer({
     }
 });
 
-// --- Initialize Google Generative AI ---
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+// --- Initialize Groq ---
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 // --- HTML Page Routes ---
 app.get('/', (req, res) => {
@@ -201,13 +202,23 @@ app.post('/api/capture-email', emailLimiter, async (req, res) => {
 });
 
 // --- Helper Functions ---
-function fileToGenerativePart(filePath, mimeType) {
-    return {
-        inlineData: {
-            data: Buffer.from(fs.readFileSync(filePath)).toString("base64"),
-            mimeType
-        },
-    };
+const MAX_RESUME_CHARS = 12000;
+
+function normalizeText(text) {
+    return text.replace(/\s+/g, ' ').trim();
+}
+
+async function extractPdfText(filePath) {
+    const fileBuffer = fs.readFileSync(filePath);
+    const parsed = await pdfParse(fileBuffer);
+    const normalized = normalizeText(parsed.text || '');
+    if (!normalized) {
+        throw new Error('parse: No readable text found in PDF');
+    }
+    if (normalized.length > MAX_RESUME_CHARS) {
+        return normalized.slice(0, MAX_RESUME_CHARS) + '...';
+    }
+    return normalized;
 }
 
 function cleanupFile(filePath) {
@@ -425,20 +436,24 @@ app.post('/api/roast', roastLimiter, upload.single('resume'), async (req, res) =
     try {
         // Add to queue for controlled concurrency
         const result = await roastQueue.add(async () => {
-            const model = genAI.getGenerativeModel({ 
-                model: process.env.GEMINI_MODEL || "gemini-2.0-flash-lite",
-                safetySettings: [
-                    { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
-                    { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
-                    { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_ONLY_HIGH" },
-                    { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_ONLY_HIGH" },
-                ],
+            const model = process.env.GROQ_MODEL || "llama-3.1-8b-instant";
+            const resumeText = await extractPdfText(filePath);
+
+            const completion = await groq.chat.completions.create({
+                model,
+                temperature: 0.7,
+                max_tokens: 2000,
+                messages: [
+                    { role: "system", content: ROAST_PROMPT },
+                    { role: "user", content: `Resume Text:\n${resumeText}` }
+                ]
             });
 
-            const resumePart = fileToGenerativePart(filePath, req.file.mimetype);
-            const aiResult = await model.generateContent([ROAST_PROMPT, resumePart]);
-            const response = await aiResult.response;
-            return response.text();
+            const content = completion.choices?.[0]?.message?.content;
+            if (!content) {
+                throw new Error('invalid: No response content from Groq');
+            }
+            return content;
         });
 
         // Clean up file after processing
