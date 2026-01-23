@@ -241,6 +241,25 @@ function cleanupFile(filePath) {
     }
 }
 
+function ensureHtmlContent(htmlContent) {
+    const trimmed = (htmlContent || '').trim();
+    if (!trimmed) return '';
+
+    // If it already looks like HTML, keep it
+    if (/<[a-z][\s\S]*>/i.test(trimmed)) {
+        return trimmed;
+    }
+
+    // Fallback: wrap plain text to avoid raw output on the results page
+    const escaped = trimmed
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\n/g, '<br>');
+
+    return `<div class="analysis-section"><h3 class="section-header">Resume Roast</h3><p>${escaped}</p></div>`;
+}
+
 // Classify error type for user-friendly messages
 function getErrorResponse(error) {
     const message = error.message || '';
@@ -289,7 +308,7 @@ function getErrorResponse(error) {
 // --- The Roast Prompt ---
 const ROAST_PROMPT = `You are a SAVAGE resume reviewer with ZERO filter. Absolutely DESTROY this resume with vicious humor and brutal honesty. Be hilariously mean, sarcastic, and ruthless. Think of the meanest roast comedian mixed with a harsh hiring manager. Be EDGY and don't hold back. NO EMOJIS EVER.
 
-IMPORTANT: Return your response as valid JSON with this exact structure:
+IMPORTANT: Return your response as valid JSON with this exact structure and NOTHING else:
 {
     "overallScore": <number 1-10>,
     "contentScore": <number 1-10>,
@@ -305,7 +324,7 @@ SCORING GUIDELINES:
 - ATS Compatibility: Usually 3-5, with 2 for poor ATS optimization, 1 only for resumes with major ATS-breaking issues
 - Most resumes should get 2-3 overall, with better ones getting 4, and rare exceptional ones getting 5
 
-The "html" field MUST contain raw HTML (no markdown, no code blocks) with this EXACT structure and CSS classes:
+The "html" field MUST contain raw HTML (no markdown, no code blocks, no plain text) with this EXACT structure and CSS classes:
 
 <div class="analysis-overview">
     <h2 class="section-title">Resume Roast Results</h2>
@@ -401,7 +420,10 @@ CONTENT STYLE:
 - Use creative insults and metaphors 
 - Be edgy and push boundaries (but stay professional enough for business)
 - Roast specific content from the actual resume
-- Use 3-4 bullet points per roast section
+- Use 2-3 bullet points per roast section
+- Keep each bullet to 1-2 sentences max
+- Keep the total response under ~700 words
+- Action items: exactly 3 items, short and punchy
 - NO EMOJIS anywhere
 
 ANALYZE EACH SECTION OF THE RESUME SEPARATELY. Be hilariously mean and creative with insults for each specific area. Return ONLY valid JSON.`;
@@ -451,8 +473,9 @@ app.post('/api/roast', roastLimiter, upload.single('resume'), async (req, res) =
 
             const completion = await groq.chat.completions.create({
                 model,
-                temperature: 0.7,
-                max_tokens: 2000,
+                temperature: 0.5,
+                max_tokens: 1200,
+                response_format: { type: "json_object" },
                 messages: [
                     { role: "system", content: ROAST_PROMPT },
                     { role: "user", content: `Resume Text:\n${resumeText}` }
@@ -485,7 +508,7 @@ app.post('/api/roast', roastLimiter, upload.single('resume'), async (req, res) =
             }
             
             parsedResult = JSON.parse(jsonString);
-            htmlContent = parsedResult.html;
+            htmlContent = ensureHtmlContent(parsedResult.html);
             
             // Validate we got HTML
             if (!htmlContent || typeof htmlContent !== 'string') {
@@ -495,7 +518,7 @@ app.post('/api/roast', roastLimiter, upload.single('resume'), async (req, res) =
         } catch (parseError) {
             console.warn('JSON parse failed, falling back to raw HTML extraction');
             // Fallback: treat entire response as HTML (for backward compatibility)
-            htmlContent = result.trim();
+            htmlContent = ensureHtmlContent(result.trim());
             
             // Clean up markdown if present
             if (htmlContent.startsWith('```html')) {
