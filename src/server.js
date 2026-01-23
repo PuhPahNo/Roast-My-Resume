@@ -6,7 +6,8 @@ const fs = require('fs');
 const path = require('path');
 const { Pool } = require('pg');
 const rateLimit = require('express-rate-limit');
-const pdfParse = require('pdf-parse');
+const pdfParseModule = require('pdf-parse');
+const pdfParse = pdfParseModule.default || pdfParseModule;
 
 // Dynamic import for p-queue (ESM module)
 let PQueue;
