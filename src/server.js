@@ -6,8 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const { Pool } = require('pg');
 const rateLimit = require('express-rate-limit');
-const pdfParseModule = require('pdf-parse');
-const pdfParse = pdfParseModule.default || pdfParseModule;
+const { PDFParse } = require('pdf-parse');
 
 // Dynamic import for p-queue (ESM module)
 let PQueue;
@@ -220,8 +219,9 @@ function normalizeText(text) {
 
 async function extractPdfText(filePath) {
     const fileBuffer = fs.readFileSync(filePath);
-    const parsed = await pdfParse(fileBuffer);
-    const normalized = normalizeText(parsed.text || '');
+    const parser = new PDFParse(fileBuffer);
+    const parsed = await parser.getText();
+    const normalized = normalizeText(parsed?.text || '');
     if (!normalized) {
         throw new Error('parse: No readable text found in PDF');
     }
