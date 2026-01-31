@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="RoastMyResume">
+  <defs>
+    <linearGradient id="flame" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="60%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#dc2626"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#111827"/>
+  <path d="M256 88c18 48-8 78-30 110-26 36-34 70-14 102 14 22 38 34 62 36-24-22-24-54 2-88 24-32 54-56 56-98 2-44-32-76-76-62z" fill="url(#flame)"/>
+  <path d="M256 212c-46 32-74 76-74 124 0 70 52 120 128 120s128-50 128-120c0-38-18-72-48-96-6 44-40 70-80 78-6 2-12 2-18 2-30 0-54-16-62-38-8-22-2-48 26-70z" fill="url(#flame)"/>
+</svg>
