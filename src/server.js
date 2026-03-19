@@ -7,6 +7,7 @@ const path = require('path');
 const { Pool } = require('pg');
 const rateLimit = require('express-rate-limit');
 const { PDFParse } = require('pdf-parse');
+const dns = require('dns').promises;
 
 // Dynamic import for p-queue (ESM module)
 let PQueue;
@@ -89,6 +90,95 @@ async function saveEmail(email) {
 
 // Initialize database on startup
 initDB();
+
+// --- EmailOctopus Configuration ---
+const EMAIL_OCTOPUS_API_KEY = process.env.EMAIL_OCTOPUS_API_KEY;
+const EMAIL_OCTOPUS_LIST_ID = process.env.EMAIL_OCTOPUS_LIST_ID;
+
+if (!EMAIL_OCTOPUS_API_KEY || !EMAIL_OCTOPUS_LIST_ID) {
+    console.warn('EMAIL_OCTOPUS_API_KEY or EMAIL_OCTOPUS_LIST_ID not set. EmailOctopus integration disabled.');
+} else {
+    console.log('EmailOctopus integration enabled');
+}
+
+async function upsertEmailOctopusContact(email) {
+    if (!EMAIL_OCTOPUS_API_KEY || !EMAIL_OCTOPUS_LIST_ID) {
+        return { success: true, message: 'EmailOctopus disabled (not configured)' };
+    }
+
+    try {
+        const response = await fetch(
+            `https://api.emailoctopus.com/lists/${EMAIL_OCTOPUS_LIST_ID}/contacts`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${EMAIL_OCTOPUS_API_KEY}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email_address: email,
+                    status: 'subscribed'
+                })
+            }
+        );
+
+        if (!response.ok) {
+            const errorBody = await response.json().catch(() => ({}));
+            console.error('EmailOctopus API error:', response.status, errorBody);
+            return { success: false, message: errorBody.detail || 'EmailOctopus API error' };
+        }
+
+        const data = await response.json();
+        console.log(`EmailOctopus upsert success for ${email} (id: ${data.id})`);
+        return { success: true, message: 'Contact upserted' };
+    } catch (error) {
+        console.error('EmailOctopus network error:', error.message);
+        return { success: false, message: 'EmailOctopus unreachable' };
+    }
+}
+
+// --- Email Validation ---
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
+
+const DNS_TIMEOUT_MS = 5000;
+
+async function validateEmail(email) {
+    if (!email || typeof email !== 'string') {
+        return { valid: false, reason: 'Email is required' };
+    }
+
+    const trimmed = email.trim().toLowerCase();
+
+    if (!EMAIL_REGEX.test(trimmed)) {
+        return { valid: false, reason: 'Please enter a valid email address' };
+    }
+
+    const domain = trimmed.split('@')[1];
+
+    try {
+        const mxLookup = dns.resolveMx(domain);
+        const timeout = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('DNS timeout')), DNS_TIMEOUT_MS)
+        );
+        const mxRecords = await Promise.race([mxLookup, timeout]);
+
+        if (!mxRecords || mxRecords.length === 0) {
+            return { valid: false, reason: 'This email domain does not accept mail' };
+        }
+    } catch (err) {
+        if (err.message === 'DNS timeout') {
+            console.warn(`DNS MX lookup timed out for ${domain}, allowing through`);
+            return { valid: true };
+        }
+        if (err.code === 'ENOTFOUND' || err.code === 'ENODATA' || err.code === 'ESERVFAIL') {
+            return { valid: false, reason: 'This email domain does not exist' };
+        }
+        console.warn(`DNS MX lookup error for ${domain}:`, err.message);
+        return { valid: true };
+    }
+
+    return { valid: true };
+}
 
 // --- Rate Limiting ---
 const roastLimiter = rateLimit({
@@ -192,18 +282,26 @@ app.get('/roast-result.html', (req, res) => {
 app.post('/api/capture-email', emailLimiter, async (req, res) => {
     try {
         const { email } = req.body;
-        
-        if (!email) {
-            return res.status(400).json({ success: false, message: "Email is required" });
+
+        const validation = await validateEmail(email);
+        if (!validation.valid) {
+            return res.status(400).json({ success: false, message: validation.reason });
         }
-        
-        if (!email.includes('@') || !email.includes('.')) {
-            return res.status(400).json({ success: false, message: "Invalid email format" });
+
+        const normalizedEmail = email.trim().toLowerCase();
+
+        // Save to PostgreSQL (local backup) and EmailOctopus in parallel
+        const [dbResult, eoResult] = await Promise.all([
+            saveEmail(normalizedEmail),
+            upsertEmailOctopusContact(normalizedEmail)
+        ]);
+
+        if (!eoResult.success) {
+            console.warn('EmailOctopus upsert failed, but DB save proceeded:', eoResult.message);
         }
-        
-        const result = await saveEmail(email);
-        return res.json(result);
-        
+
+        return res.json({ success: true, message: 'Email captured successfully' });
+
     } catch (error) {
         console.error("Error in capture-email route:", error);
         return res.status(500).json({ success: false, message: "Server error" });
