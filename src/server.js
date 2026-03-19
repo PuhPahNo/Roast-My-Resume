@@ -278,6 +278,21 @@ app.get('/roast-result.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'roast-result.html'));
 });
 
+// --- Blog Routes ---
+app.get('/blog', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', 'blog', 'index.html'));
+});
+
+app.get('/blog/:slug', (req, res) => {
+    const slug = req.params.slug.replace(/[^a-z0-9-]/gi, '');
+    const filePath = path.join(__dirname, 'pages', 'blog', `${slug}.html`);
+    if (fs.existsSync(filePath)) {
+        res.sendFile(filePath);
+    } else {
+        res.status(404).sendFile(path.join(__dirname, 'pages', 'index.html'));
+    }
+});
+
 // --- Email Capture API ---
 app.post('/api/capture-email', emailLimiter, async (req, res) => {
     try {

@@ -5,41 +5,85 @@
     <!-- Homepage - High Priority -->
     <url>
         <loc>https://roast-my-resume.com/</loc>
-        <lastmod>2025-01-04</lastmod>
+        <lastmod>2026-03-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     
     <!-- About Page -->
     <url>
-        <loc>https://roast-my-resume.com/src/pages/about.html</loc>
-        <lastmod>2025-01-04</lastmod>
+        <loc>https://roast-my-resume.com/about.html</loc>
+        <lastmod>2026-03-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <!-- Contact Page -->
     <url>
-        <loc>https://roast-my-resume.com/src/pages/contact.html</loc>
-        <lastmod>2025-01-04</lastmod>
+        <loc>https://roast-my-resume.com/contact.html</loc>
+        <lastmod>2026-03-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     
     <!-- Privacy Policy -->
     <url>
-        <loc>https://roast-my-resume.com/src/pages/privacy.html</loc>
-        <lastmod>2025-01-04</lastmod>
+        <loc>https://roast-my-resume.com/privacy.html</loc>
+        <lastmod>2026-03-18</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
     </url>
     
     <!-- Terms of Service -->
     <url>
-        <loc>https://roast-my-resume.com/src/pages/terms.html</loc>
-        <lastmod>2025-01-04</lastmod>
+        <loc>https://roast-my-resume.com/terms.html</loc>
+        <lastmod>2026-03-18</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
+    </url>
+    
+    <!-- Blog Index -->
+    <url>
+        <loc>https://roast-my-resume.com/blog</loc>
+        <lastmod>2026-03-18</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Blog Articles -->
+    <url>
+        <loc>https://roast-my-resume.com/blog/is-my-resume-cooked</loc>
+        <lastmod>2026-03-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://roast-my-resume.com/blog/what-is-a-resume-roast</loc>
+        <lastmod>2026-03-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://roast-my-resume.com/blog/ai-resume-roaster</loc>
+        <lastmod>2026-03-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://roast-my-resume.com/blog/roast-my-cv</loc>
+        <lastmod>2026-03-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://roast-my-resume.com/blog/resume-red-flags</loc>
+        <lastmod>2026-03-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
     </url>
     
 </urlset>

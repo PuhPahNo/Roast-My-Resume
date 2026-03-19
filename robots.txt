@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Disallow result pages from being indexed (user-specific content)
-Disallow: /src/pages/roast-result.html
+Disallow: /roast-result.html
 
 # Allow access to static resources
 Allow: /public/css/
@@ -11,6 +11,3 @@ Allow: /static/
 
 # Sitemap location
 Sitemap: https://roast-my-resume.com/sitemap.xml
-
-# Crawl delay to be respectful to search engines
-Crawl-delay: 1
