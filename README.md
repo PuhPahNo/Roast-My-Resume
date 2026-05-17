@@ -35,19 +35,20 @@ Roast-My-Resume/
 │   └── Sample Resume/         # Sample resume files
 ├── docs/                      # Documentation (future use)
 ├── package.json              # Node.js dependencies
-├── .gitignore               # Git ignore rules
+├── .env.example            # Sample environment variables
+├── .gitignore              # Git ignore rules
 └── README.md               # This file
 ```
 
 ## 🚀 Features
 
-- **AI-Powered Analysis**: Uses Google Gemini AI for intelligent resume feedback
+- **AI-Powered Analysis**: Uses Groq-hosted LLMs for intelligent resume feedback
 - **Brutal Honesty**: Provides savage, humorous roasts with actionable advice
 - **Email Gate**: Captures user emails for marketing (bypassed for sample resumes)
 - **Progress Modal**: Smooth progress tracking with realistic timing
 - **Tabbed Roast Interface**: Organized feedback by resume sections
 - **Mobile Responsive**: Works seamlessly on all devices
-- **File Upload**: Supports PDF, DOC, and DOCX files
+- **File Upload**: Supports PDF uploads
 - **Sample Resume**: Demo functionality without email requirement
 
 ## 🛠️ Installation
@@ -64,9 +65,24 @@ Roast-My-Resume/
    ```
 
 3. **Set up environment variables**
-   Create a `.env` file in the root directory:
+   Copy `.env.example` to `.env`, then fill in your private values:
+   ```bash
+   cp .env.example .env
+   ```
+
+   Required:
    ```env
-   GOOGLE_API_KEY=your_google_gemini_api_key_here
+   GROQ_API_KEY=your_groq_api_key_here
+   ```
+
+   Optional:
+   ```env
+   PORT=3000
+   GROQ_MODEL=llama-3.1-8b-instant
+   DATABASE_URL=
+   DB_SSL_MODE=require
+   EMAIL_OCTOPUS_API_KEY=
+   EMAIL_OCTOPUS_LIST_ID=
    ```
 
 4. **Start the server**
@@ -87,7 +103,9 @@ Roast-My-Resume/
 ### Backend (Node.js/Express)
 - **server.js**: Main server file with API routes
 - **Multer**: Handles file uploads with temporary storage
-- **Google Generative AI**: Processes resumes and generates roasts
+- **Groq SDK**: Processes resumes and generates roasts
+- **PostgreSQL**: Optional email capture storage
+- **EmailOctopus**: Optional marketing list sync
 - **Static file serving**: Serves frontend assets
 
 ### Frontend (Vanilla JS/CSS)
@@ -147,7 +165,8 @@ Adjust in `public/js/progress-modal.js`:
 ## 🚀 Deployment
 
 1. **Environment Setup**
-   - Set `GOOGLE_API_KEY` environment variable
+   - Set `GROQ_API_KEY`
+   - Optionally set `DATABASE_URL`, `DB_SSL_MODE`, `EMAIL_OCTOPUS_API_KEY`, and `EMAIL_OCTOPUS_LIST_ID`
    - Configure upload directory permissions
 
 2. **Build Process**
@@ -165,7 +184,7 @@ Adjust in `public/js/progress-modal.js`:
 Processes uploaded resume and returns AI-generated roast.
 
 **Request:**
-- `resume`: File (PDF, DOC, DOCX)
+- `resume`: File (PDF)
 - `email`: String (optional, for user resumes)
 
 **Response:**
