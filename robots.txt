@@ -10,4 +10,4 @@ Allow: /public/js/
 Allow: /static/
 
 # Sitemap location
-Sitemap: https://roast-my-resume.com/sitemap.xml
+Sitemap: https://www.roast-my-resume.com/sitemap.xml
