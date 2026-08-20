@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="text-xl font-semibold text-gray-700">Drop your resume here</p>
                     <p class="text-lg text-gray-500">or click to browse</p>
                 </div>
-                <p class="text-base text-gray-400">PDF, DOC, DOCX up to 10MB</p>
+                <p class="text-base text-gray-400">PDF, DOCX, or TXT up to 10MB</p>
             </div>
         `;
         if (fileInput) fileInput.value = '';
@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
     async function roastSampleResume(event) {
         if (event) event.stopPropagation();
         try {
-            const response = await fetch('/static/Sample%20Resume/resume.pdf');
+            const response = await fetch('/static/sample-resume/resume.pdf');
             if (!response.ok) throw new Error('Sample resume not found.');
             
             const blob = await response.blob();

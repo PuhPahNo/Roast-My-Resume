@@ -42,13 +42,13 @@ Roast-My-Resume/
 
 ## 🚀 Features
 
-- **AI-Powered Analysis**: Uses Groq-hosted LLMs for intelligent resume feedback
+- **AI-Powered Analysis**: Uses Groq-hosted GPT-OSS 120B with strict structured output for intelligent resume feedback
 - **Brutal Honesty**: Provides savage, humorous roasts with actionable advice
 - **Email Gate**: Captures user emails for marketing (bypassed for sample resumes)
 - **Progress Modal**: Smooth progress tracking with realistic timing
 - **Tabbed Roast Interface**: Organized feedback by resume sections
 - **Mobile Responsive**: Works seamlessly on all devices
-- **File Upload**: Supports PDF uploads
+- **File Upload**: Supports PDF, DOCX, and UTF-8 TXT uploads
 - **Sample Resume**: Demo functionality without email requirement
 
 ## 🛠️ Installation
@@ -78,7 +78,8 @@ Roast-My-Resume/
    Optional:
    ```env
    PORT=3000
-   GROQ_MODEL=llama-3.1-8b-instant
+   GROQ_MODEL=openai/gpt-oss-120b
+   GROQ_REQUESTS_PER_MINUTE=1
    DATABASE_URL=
    DB_SSL_MODE=require
    EMAIL_OCTOPUS_API_KEY=
@@ -98,12 +99,17 @@ Roast-My-Resume/
 5. **Open in browser**
    Navigate to `http://localhost:3000`
 
+6. **Run the tests**
+   ```bash
+   npm test
+   ```
+
 ## 🏗️ Architecture
 
 ### Backend (Node.js/Express)
 - **server.js**: Main server file with API routes
 - **Multer**: Handles file uploads with temporary storage
-- **Groq SDK**: Processes resumes and generates roasts
+- **Groq SDK**: Processes resumes with strict JSON-schema responses
 - **PostgreSQL**: Optional email capture storage
 - **EmailOctopus**: Optional marketing list sync
 - **Static file serving**: Serves frontend assets
@@ -181,10 +187,10 @@ Adjust in `public/js/progress-modal.js`:
 ## 📝 API Endpoints
 
 ### POST `/api/roast`
-Processes uploaded resume and returns AI-generated roast.
+Processes an uploaded PDF, DOCX, or UTF-8 TXT resume and returns an AI-generated roast.
 
 **Request:**
-- `resume`: File (PDF)
+- `resume`: File (PDF, DOCX, or UTF-8 TXT; 10MB maximum)
 - `email`: String (optional, for user resumes)
 
 **Response:**

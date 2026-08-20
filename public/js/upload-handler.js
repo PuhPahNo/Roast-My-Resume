@@ -45,10 +45,11 @@ class UploadHandler {
 
     handleFile(file) {
         if (!file) return;
-        
-        const validTypes = ['application/pdf'];
-        if (!validTypes.includes(file.type)) {
-            alert('Please upload a PDF file. DOC/DOCX files are not currently supported.');
+
+        const extension = file.name.split('.').pop()?.toLowerCase();
+        const validExtensions = ['pdf', 'docx', 'txt'];
+        if (!validExtensions.includes(extension)) {
+            alert('Please upload a PDF, DOCX, or TXT file.');
             return;
         }
         
@@ -63,17 +64,21 @@ class UploadHandler {
 
     updateUploadArea(file) {
         if (!this.uploadArea) return;
-        
+
+        const extension = file.name.split('.').pop()?.toLowerCase();
+        const iconClass = extension === 'docx' ? 'fa-file-word' : extension === 'txt' ? 'fa-file-alt' : 'fa-file-pdf';
+        const safeFilename = this.escapeHtml(file.name);
+
         this.uploadArea.innerHTML = `
             <div class="space-y-6">
                 <!-- File Preview Container -->
                 <div class="bg-green-50 p-6 rounded-lg border-2 border-green-200 relative">
                     <div class="flex items-center space-x-4">
                         <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                            <i class="fas fa-file-pdf text-2xl text-green-600"></i>
+                            <i class="fas ${iconClass} text-2xl text-green-600"></i>
                         </div>
                         <div>
-                            <p class="font-semibold text-gray-700">${file.name}</p>
+                            <p class="font-semibold text-gray-700">${safeFilename}</p>
                             <p class="text-sm text-gray-500">${(file.size / 1024 / 1024).toFixed(2)} MB</p>
                         </div>
                     </div>
@@ -113,10 +118,17 @@ class UploadHandler {
                     <p class="text-xl font-semibold text-gray-700">Drop your resume here</p>
                     <p class="text-lg text-gray-500">or click to browse</p>
                 </div>
-                <p class="text-base text-gray-400">PDF files up to 10MB</p>
+                <p class="text-base text-gray-400">PDF, DOCX, or TXT up to 10MB</p>
             </div>
         `;
         this.currentFile = null;
+        if (this.fileInput) this.fileInput.value = '';
+    }
+
+    escapeHtml(value) {
+        const element = document.createElement('div');
+        element.textContent = value;
+        return element.innerHTML;
     }
 
     removeResume(event) {
@@ -142,4 +154,4 @@ function roastResume(event) {
     if (event) event.stopPropagation();
     const progressModal = new ProgressModal();
     progressModal.startRoastProcess(window.uploadHandler.getCurrentFile());
-} 
+}

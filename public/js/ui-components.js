@@ -81,13 +81,18 @@ class UIComponents {
         const closeMobileMenu = document.getElementById('close-mobile-menu');
 
         if (mobileMenuButton && mobileMenu && closeMobileMenu) {
-            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.add('open'));
-            closeMobileMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+            const setMenuOpen = (isOpen) => {
+                mobileMenu.classList.toggle('open', isOpen);
+                mobileMenuButton.setAttribute('aria-expanded', String(isOpen));
+            };
+
+            mobileMenuButton.addEventListener('click', () => setMenuOpen(true));
+            closeMobileMenu.addEventListener('click', () => setMenuOpen(false));
             
             // Close menu when clicking nav links
             const mobileNavLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
             mobileNavLinks.forEach(link => {
-                link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+                link.addEventListener('click', () => setMenuOpen(false));
             });
         }
     }
@@ -189,7 +194,7 @@ class UIComponents {
     async loadSampleResume(event) {
         if (event) event.stopPropagation();
         try {
-            const url = '/static/Sample%20Resume/resume.pdf';
+            const url = '/static/sample-resume/resume.pdf';
             console.log('Attempting to fetch sample resume from:', url);
             console.log('Full URL:', window.location.origin + url);
             
@@ -262,4 +267,4 @@ class UIComponents {
 async function roastSampleResume(event) {
     const uiComponents = new UIComponents();
     await uiComponents.loadSampleResume(event);
-} 
+}
