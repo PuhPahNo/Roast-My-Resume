@@ -53,7 +53,7 @@ function showError(details) {
     if (details) {
         const errorElement = document.querySelector('#error-message p');
         if (errorElement) {
-            errorElement.innerHTML = `We couldn't roast your resume. <br><strong>Details:</strong> ${details}`;
+            errorElement.textContent = `We couldn't roast your resume. Details: ${details}`;
         }
     }
 }

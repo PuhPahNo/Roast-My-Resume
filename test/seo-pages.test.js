@@ -40,14 +40,18 @@ test('JSON-LD blocks are valid JSON', () => {
 });
 
 test('legacy unsupported product claims do not return', () => {
-  const html = pageFiles.map((file) => fs.readFileSync(path.join(root, file), 'utf8')).join('\n');
+  const html = [...pageFiles, 'src/pages/roast-result.html']
+    .map((file) => fs.readFileSync(path.join(root, file), 'utf8'))
+    .join('\n');
   for (const phrase of [
     'Google AI APIs',
     'trained on thousands of resumes',
     'simulates exactly how an ATS',
     'every major ATS handles',
     '75% of large employers',
-    'Recruiters spend 6 seconds'
+    'Recruiters spend 6 seconds',
+    'Proven to increase response rates',
+    'Pass automated screening systems'
   ]) {
     assert.equal(html.includes(phrase), false, `unsupported claim found: ${phrase}`);
   }
