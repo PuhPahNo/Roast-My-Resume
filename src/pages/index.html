@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Roast My Resume | Free AI Resume Roast &amp; CV Feedback</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Is your resume cooked? Find out in seconds with our free AI resume roaster. Get brutally honest feedback, ATS optimization tips, and actionable advice for your resume or CV.">
+    <meta name="description" content="Roast your resume for free and get direct AI feedback on weak bullets, vague summaries, text structure, and general ATS readability.">
     <link rel="icon" href="/public/assets/favicon.png" type="image/png">
     
     <!-- SEO Keywords -->
-    <meta name="keywords" content="resume roast, free resume feedback, AI resume checker, resume analysis, ATS optimization, resume critique, instant resume review, resume grader, brutal resume feedback, resume roaster, ai resume roaster, roast my cv, cv roast, is my resume cooked, resume cooked">
+    <meta name="keywords" content="resume roast, free resume feedback, AI resume checker, resume analysis, resume critique, resume grader, resume roaster, AI resume roaster, roast my CV, CV roast, is my resume cooked">
     
     <!-- Open Graph Tags for Social Sharing -->
     <meta property="og:title" content="Roast My Resume | Free AI Resume Roast & CV Feedback">
-    <meta property="og:description" content="Is your resume cooked? Find out in seconds with our free AI resume roaster. Brutally honest feedback and ATS tips for your resume or CV.">
+    <meta property="og:description" content="Get direct AI feedback on weak bullets, vague summaries, text structure, and general ATS readability.">
     <meta property="og:image" content="https://www.roast-my-resume.com/public/assets/og-image.png">
     <meta property="og:url" content="https://www.roast-my-resume.com/">
     <meta property="og:type" content="website">
@@ -22,7 +22,7 @@
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Roast My Resume | Free AI Resume Roast & CV Feedback">
-    <meta name="twitter:description" content="Is your resume cooked? Find out in seconds with our free AI resume roaster. Brutally honest feedback and ATS tips for your resume or CV.">
+    <meta name="twitter:description" content="Get direct AI feedback on weak bullets, vague summaries, text structure, and general ATS readability.">
     <meta name="twitter:image" content="https://www.roast-my-resume.com/public/assets/og-image.png">
     
     <!-- Canonical URL -->
@@ -36,22 +36,11 @@
     <meta name="geo.placename" content="United States">
     
     <!-- Tailwind and Font Awesome -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/public/css/tailwind.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Tailwind Config -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'sans': ['DM Sans', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../../public/css/main.css">
@@ -63,7 +52,7 @@
       "@type": "WebApplication",
       "name": "RoastMyResume",
       "applicationCategory": "BusinessApplication",
-      "description": "Free AI resume roaster and CV feedback tool. Get instant, brutally honest resume critique and ATS optimization to improve your chances of landing interviews.",
+      "description": "Free automated resume and CV feedback on clarity, evidence, text structure, and general ATS readability.",
       "url": "https://www.roast-my-resume.com",
       "creator": {
         "@type": "Organization",
@@ -77,11 +66,21 @@
       },
       "featureList": [
         "Free AI resume analysis",
-        "ATS optimization feedback", 
-        "Instant resume scoring",
-        "Professional resume critique",
-        "Actionable improvement recommendations"
+        "General ATS readability feedback",
+        "Four resume review scores",
+        "Section-by-section critique",
+        "Specific improvement recommendations"
       ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Roast My Resume",
+      "alternateName": ["RoastMyResume", "Roast My CV"],
+      "url": "https://www.roast-my-resume.com/"
     }
     </script>
     
@@ -92,11 +91,8 @@
       "name": "RoastMyResume",
       "url": "https://www.roast-my-resume.com",
       "logo": "https://www.roast-my-resume.com/public/assets/favicon.png",
-      "description": "AI-powered resume analysis platform providing free, instant feedback to help job seekers improve their resumes and land more interviews.",
-      "sameAs": [
-        "https://twitter.com/roastmyresume",
-        "https://linkedin.com/company/roastmyresume"
-      ]
+      "description": "Free automated resume feedback on clarity, evidence, text structure, and general ATS readability.",
+      "email": "support@roastmyresume.com"
     }
     </script>
 </head>
@@ -111,10 +107,10 @@
                     <span class="text-2xl font-bold text-gray-900">RoastMyResume</span>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#features" class="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
-                    <a href="#examples" class="text-gray-600 hover:text-gray-900 transition-colors">Examples</a>
-                    <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
-                    <a href="/blog" class="text-gray-600 hover:text-gray-900 transition-colors">Blog</a>
+                    <a href="#features" class="text-gray-600 hover:text-gray-900 transition-colors">What We Check</a>
+                    <a href="#examples" class="text-gray-600 hover:text-gray-900 transition-colors">Resume Roast Examples</a>
+                    <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition-colors">Free Resume Roast</a>
+                    <a href="/blog" class="text-gray-600 hover:text-gray-900 transition-colors">Resume Guides</a>
                 </div>
                 <button class="md:hidden" id="mobile-menu-button" aria-label="Open mobile menu" aria-expanded="false">
                     <i class="fas fa-bars text-gray-600" aria-hidden="true"></i>
@@ -135,10 +131,10 @@
             </button>
         </div>
         <div class="p-4 space-y-4">
-            <a href="#features" class="block text-gray-600 hover:text-gray-900 transition-colors text-lg mobile-nav-link">Features</a>
-            <a href="#examples" class="block text-gray-600 hover:text-gray-900 transition-colors text-lg mobile-nav-link">Examples</a>
-            <a href="#pricing" class="block text-gray-600 hover:text-gray-900 transition-colors text-lg mobile-nav-link">Pricing</a>
-            <a href="/blog" class="block text-gray-600 hover:text-gray-900 transition-colors text-lg mobile-nav-link">Blog</a>
+            <a href="#features" class="block text-gray-600 hover:text-gray-900 transition-colors text-lg mobile-nav-link">What We Check</a>
+            <a href="#examples" class="block text-gray-600 hover:text-gray-900 transition-colors text-lg mobile-nav-link">Resume Roast Examples</a>
+            <a href="#pricing" class="block text-gray-600 hover:text-gray-900 transition-colors text-lg mobile-nav-link">Free Resume Roast</a>
+            <a href="/blog" class="block text-gray-600 hover:text-gray-900 transition-colors text-lg mobile-nav-link">Resume Guides</a>
         </div>
     </div>
 
@@ -148,9 +144,9 @@
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="text-center lg:text-left">
                     <h1 class="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
-                        Get Your Resume
+                        Roast My Resume.
                         <span class="relative">
-                            <span class="text-orange-300">Roasted</span>
+                            <span class="text-orange-300">Keep the useful parts.</span>
                             <i class="fas fa-fire absolute -top-3 -right-10 text-orange-400 text-3xl"></i>
                         </span>
                     </h1>
@@ -161,12 +157,12 @@
                             Free
                         </span>
                         <span class="text-white ml-3 text-lg">
-                            No signup required • Instant results
+                            Free review • Email required for full results
                         </span>
                     </div>
                     
                     <p class="text-2xl mb-10 text-blue-100">
-                        The free AI resume roaster that gives you brutally honest feedback in seconds. Upload your resume or CV and get instant professional critique with ATS optimization to land more interviews.
+                        Upload your resume or CV for a direct second opinion on weak bullets, vague summaries, text structure, and general ATS readability.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                         <button class="bg-white text-orange-600 px-10 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors heat-glow">
@@ -197,7 +193,7 @@
                     <div class="mt-6 text-center">
                         <p class="text-sm text-gray-500">
                             By uploading, you agree to our 
-                            <a href="/terms.html" class="text-orange-600 hover:underline">Terms of Service</a>
+                            <a href="/terms" class="text-orange-600 hover:underline">Terms of Service</a>
                         </p>
                     </div>
                 </div>
@@ -205,30 +201,13 @@
         </div>
     </section>
 
-    <!-- Used By Section -->
+    <!-- Trust Section -->
     <section class="py-16 bg-white border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div class="text-center mb-12">
-                <p class="text-lg text-gray-600 mb-8">
-                    Trusted by professionals seeking resume feedback and career advancement at top companies worldwide
-                </p>
-                <div class="logo-grid">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" 
-                         alt="Amazon" class="company-logo">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" 
-                         alt="Google" class="company-logo">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" 
-                         alt="Apple" class="company-logo apple-logo">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" 
-                         alt="Netflix" class="company-logo">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Tesla_T_symbol.svg" 
-                         alt="Tesla" class="company-logo tesla-logo">
-                </div>
-                <div class="mt-8 text-center">
-                    <p class="text-sm text-gray-500">
-                        Join thousands of professionals getting <span class="font-semibold fire-accent">instant resume feedback</span>
-                    </p>
-                </div>
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div><p class="font-bold text-gray-900 mb-1">Your file is temporary</p><p class="text-gray-600">The application removes the uploaded file after the analysis request finishes.</p></div>
+                <div><p class="font-bold text-gray-900 mb-1">The limitations are public</p><p class="text-gray-600"><a href="/methodology" class="text-orange-700 underline">Read exactly what the tool can and cannot assess.</a></p></div>
+                <div><p class="font-bold text-gray-900 mb-1">The examples are transparent</p><p class="text-gray-600"><a href="/resume-roast-examples" class="text-orange-700 underline">See fictional before-and-after rewrites.</a></p></div>
             </div>
         </div>
     </section>
@@ -238,10 +217,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                    See What We'd Roast <span class="fire-accent">🔥</span>
+                    Resume Roast Examples: Before and After
                 </h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Hover over each section below to see the issues we'd catch in your resume. Switch between "Before" and "After" to see the transformation.
+                    Switch between “Before” and “After,” then browse our <a href="/resume-roast-examples" class="text-orange-700 underline hover:text-orange-800">five role-specific examples</a> for the reasoning behind each edit.
                 </p>
             </div>
             
@@ -333,10 +312,10 @@
                 <div class="space-y-8">
                     <div class="text-center lg:text-left">
                         <h3 class="text-2xl font-bold text-gray-900 mb-4">
-                            Every Issue We Find = More Interviews
+                    What the review looks for
                         </h3>
                         <p class="text-gray-600 mb-6">
-                            Our expert reviewers catch the mistakes that are costing you interviews. See how we transform weak resumes into interview magnets.
+                            The automated review checks the words and text structure it can extract. It cannot see every visual detail or reproduce an employer's hiring system.
                         </p>
                     </div>
                     
@@ -346,8 +325,8 @@
                                 <i class="fas fa-search"></i>
                             </div>
                             <div>
-                                <h4 class="text-lg font-semibold text-gray-900 mb-2">ATS Optimization</h4>
-                                <p class="text-gray-600">We ensure your resume gets past the robots and into human hands with proper formatting and keywords.</p>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-2"><a href="/blog/beat-the-ats" class="hover:text-orange-700">General ATS Readability</a></h4>
+                                <p class="text-gray-600">Checks conventional headings, chronology, role-relevant language, and whether extracted text stays readable.</p>
                             </div>
                         </div>
                         
@@ -356,7 +335,7 @@
                                 <i class="fas fa-chart-line"></i>
                             </div>
                             <div>
-                                <h4 class="text-lg font-semibold text-gray-900 mb-2">Impact Quantification</h4>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-2"><a href="/resume-roast-examples" class="hover:text-orange-700">Evidence and Outcomes</a></h4>
                                 <p class="text-gray-600">Transform vague descriptions into compelling achievements with specific numbers and results.</p>
                             </div>
                         </div>
@@ -366,8 +345,8 @@
                                 <i class="fas fa-bullseye"></i>
                             </div>
                             <div>
-                                <h4 class="text-lg font-semibold text-gray-900 mb-2">Strategic Positioning</h4>
-                                <p class="text-gray-600">Position yourself as the obvious choice with industry-specific language and targeted content.</p>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-2">Clear Positioning</h4>
+                                <p class="text-gray-600">Checks whether a reader can tell what you do, at what level, and where your strongest evidence sits.</p>
                             </div>
                         </div>
                         
@@ -377,7 +356,7 @@
                             </div>
                             <div>
                                 <h4 class="text-lg font-semibold text-gray-900 mb-2">Brutal Honesty</h4>
-                                <p class="text-gray-600">No sugar-coating. We tell you exactly what's wrong and how to fix it for maximum impact.</p>
+                                <p class="text-gray-600">Direct criticism, paired with specific edits you can accept, reject, or rewrite in your own voice.</p>
                             </div>
                         </div>
                     </div>
@@ -391,10 +370,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                    Why Job Seekers Choose Our Free Resume Analysis
+                    What Our Free Resume Review Checks
                 </h2>
                 <p class="text-xl text-gray-600">
-                    Professional AI resume feedback and critique that actually helps you land interviews
+                    A structured second opinion on the document you upload
                 </p>
             </div>
             
@@ -403,16 +382,16 @@
                     <div class="feature-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Instant AI Analysis</h3>
-                    <p class="text-gray-600">Upload your resume and get comprehensive feedback in seconds, powered by advanced AI.</p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Automated Text Analysis</h3>
+                    <p class="text-gray-600">Upload a PDF, DOCX, or TXT file and receive section-by-section feedback.</p>
                 </div>
                 
                 <div class="bg-white rounded-2xl p-8 card-hover shadow-lg">
                     <div class="feature-icon">
                         <i class="fas fa-users"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">AI-Powered Insights</h3>
-                    <p class="text-gray-600">Advanced AI trained on thousands of successful resumes and hiring patterns.</p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Evidence-Based Prompts</h3>
+                    <p class="text-gray-600">The model is instructed to use only the resume text and not invent missing facts.</p>
                 </div>
                 
                 <div class="bg-white rounded-2xl p-8 card-hover shadow-lg">
@@ -427,122 +406,56 @@
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Privacy Protected</h3>
-                    <p class="text-gray-600">Your resume is encrypted and automatically deleted after review.</p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Documented Data Handling</h3>
+                    <p class="text-gray-600">Uploads use HTTPS, temporary files are removed after processing, and provider handling is disclosed in our privacy policy.</p>
                 </div>
                 
                 <div class="bg-white rounded-2xl p-8 card-hover shadow-lg">
                     <div class="feature-icon">
                         <i class="fas fa-industry"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Industry Specific</h3>
-                    <p class="text-gray-600">Tailored feedback for tech, finance, healthcare, and 20+ other industries.</p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Role-Aware Language</h3>
+                    <p class="text-gray-600">The review uses roles and skills already present in the resume; it does not guess your target job.</p>
                 </div>
                 
                 <div class="bg-white rounded-2xl p-8 card-hover shadow-lg">
                     <div class="feature-icon">
                         <i class="fas fa-redo-alt"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Unlimited Revisions</h3>
-                    <p class="text-gray-600">Keep improving with multiple rounds of feedback until it's perfect.</p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Review a Revision</h3>
+                    <p class="text-gray-600">Review another version after you edit. Request and provider rate limits still apply.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                    Success Stories
-                </h2>
-                <p class="text-xl text-gray-600">
-                    Real people, real results, real job offers
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="testimonial-card rounded-2xl p-8 shadow-lg">
-                                          <div class="flex items-center mb-4">
-                          <img src="../../public/assets/images/testimonials/sammy.png" 
-                               alt="Sammy" class="w-12 h-12 rounded-full mr-4 object-cover">
-                        <div>
-                            <h4 class="font-semibold text-gray-900">Sammy</h4>
-                            <p class="text-sm text-gray-600">Accountant</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">
-                        "I knew my resume needed work, but I didn't know where to start. This tool gave me the confidence to make the changes I needed to land my dream job."
-                    </p>
-                    <div class="flex text-yellow-400">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card rounded-2xl p-8 shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <img src="../../public/assets/images/testimonials/anthony.png" 
-                             alt="Jason" class="w-12 h-12 rounded-full mr-4 object-cover">
-                        <div>
-                            <h4 class="font-semibold text-gray-900">Jason</h4>
-                            <p class="text-sm text-gray-600">Industrial Engineer</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">
-                        "The feedback was brutally honest but incredibly helpful. Fixed all my weak points and got 3 job offers in one month."
-                    </p>
-                    <div class="flex text-yellow-400">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card rounded-2xl p-8 shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <img src="../../public/assets/images/testimonials/noelle.png" 
-                             alt="Noelle" class="w-12 h-12 rounded-full mr-4 object-cover">
-                        <div>
-                            <h4 class="font-semibold text-gray-900">Noelle</h4>
-                            <p class="text-sm text-gray-600">Special Education Teacher</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">
-                        "I had to open myself up to the feedback, but it was worth it. I got 3 interviews in 2 weeks."
-                    </p>
-                    <div class="flex text-yellow-400">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Pricing -->
     <section id="pricing" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                    Simple, Transparent Pricing
+                    Free Resume Roast
                 </h2>
                 <p class="text-xl text-gray-600">
-                    Choose the level of feedback that fits your needs
+                    The current review is free. Paid services shown below are not available yet.
                 </p>
             </div>
             
             <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                 <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-orange-500 relative burn-shadow">
                     <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 gradient-bg text-white px-4 py-1 rounded-full text-sm font-semibold">
-                        Free Forever
+                        Available Now
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">AI Resume Roast</h3>
                     <div class="text-3xl font-bold fire-accent mb-4">FREE</div>
                     <ul class="space-y-3 text-gray-600 mb-8">
-                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Instant AI feedback</li>
-                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Format & layout review</li>
-                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> ATS optimization tips</li>
-                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Unlimited roasts</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Section-by-section feedback</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Text structure review</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> General ATS-readability notes</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Four review scores</li>
                     </ul>
-                    <a href="#hero" class="w-full gradient-bg text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity pricing-btn block text-center">
+                    <a href="#hero" data-track="cta_clicked" data-track-source="pricing_free" class="w-full gradient-bg text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity pricing-btn block text-center">
                         Get Your Free Roast
                     </a>
                 </div>
@@ -602,7 +515,7 @@
                     <i class="fas fa-fire text-orange-500 text-3xl"></i>
                 </div>
                 <p class="text-lg text-gray-600">
-                    Get the hot answers to your resume roasting questions
+                    Plain answers about the review, its limits, and your data
                 </p>
             </div>
             
@@ -613,11 +526,9 @@
                         <i class="fas fa-chevron-down text-orange-500 transform transition-transform duration-200"></i>
                     </button>
                     <div class="faq-answer hidden p-6 pt-0 text-gray-700">
-                        If you're asking "is my resume cooked?" or "bro is my resume cooked?" — there's a good chance it needs 
-                        work. A cooked resume is one that's been sent to dozens of jobs with zero callbacks. Common signs: a generic 
-                        objective statement, zero quantified results, buzzword overload, or a format that gets shredded by ATS systems. 
-                        The good news? You can un-cook it. Upload your resume or CV here and our AI resume roaster will tell you 
-                        exactly what's wrong and how to fix it — in about 10 seconds flat.
+                        A quiet inbox is a reason to investigate, not proof that the document is the only problem. Start with our
+                        <a href="/blog/is-my-resume-cooked" class="text-orange-700 underline">six-question cooked-resume check</a>,
+                        then review your targeting, evidence, and extracted text separately.
                     </div>
                 </div>
                 
@@ -627,9 +538,9 @@
                         <i class="fas fa-chevron-down text-orange-500 transform transition-transform duration-200"></i>
                     </button>
                     <div class="faq-answer hidden p-6 pt-0 text-gray-700">
-                        Your resume is completely secure. We use HTTPS encryption for all uploads, process files in isolated environments, 
-                        and automatically delete your resume immediately after analysis. We never store your documents permanently or 
-                        share your personal information with third parties.
+                        Uploads use HTTPS. The application stores the file temporarily, extracts its text, sends that text to Groq for analysis,
+                        and removes the temporary file after the request finishes. Provider retention and email handling are explained in our
+                        <a href="/privacy" class="text-orange-700 underline">privacy policy</a>.
                     </div>
                 </div>
                 
@@ -650,9 +561,9 @@
                         <i class="fas fa-chevron-down text-orange-500 transform transition-transform duration-200"></i>
                     </button>
                     <div class="faq-answer hidden p-6 pt-0 text-gray-700">
-                        Our AI is trained on thousands of successful resumes and hiring patterns. While it provides valuable insights about 
-                        formatting, content structure, and common issues, it's designed to complement, not replace, human judgment. 
-                        The feedback is most effective when combined with your industry knowledge and career goals.
+                        The model is useful for spotting vague writing, weak evidence, and structural problems in extracted text. It cannot see every
+                        visual detail, verify your claims, or reproduce a specific employer's hiring system. Read our
+                        <a href="/methodology" class="text-orange-700 underline">methodology</a> before treating any score as definitive.
                     </div>
                 </div>
                 
@@ -662,9 +573,8 @@
                         <i class="fas fa-chevron-down text-orange-500 transform transition-transform duration-200"></i>
                     </button>
                     <div class="faq-answer hidden p-6 pt-0 text-gray-700">
-                        Absolutely! Our free AI roast service has no limits. You can upload and analyze as many versions of your resume 
-                        as you want. This is perfect for testing different formats, refining content, or comparing multiple resume versions 
-                        before applying to jobs.
+                        You can review another version after editing. To protect the shared service, request and provider rate limits apply,
+                        so rapid repeated submissions may need to wait.
                     </div>
                 </div>
                 
@@ -674,9 +584,8 @@
                         <i class="fas fa-chevron-down text-orange-500 transform transition-transform duration-200"></i>
                     </button>
                     <div class="faq-answer hidden p-6 pt-0 text-gray-700">
-                        Our AI analysis is lightning fast! Most resumes are processed and analyzed within 5-10 seconds of upload. 
-                        You'll receive instant feedback with specific recommendations, quality scores, and actionable improvements 
-                        to make your resume more effective.
+                        Processing time varies with document length and service demand. The interface shows progress while your file is parsed
+                        and the analysis runs; unusually busy periods can take longer.
                     </div>
                 </div>
                 
@@ -686,9 +595,9 @@
                         <i class="fas fa-chevron-down text-orange-500 transform transition-transform duration-200"></i>
                     </button>
                     <div class="faq-answer hidden p-6 pt-0 text-gray-700">
-                        Unlike generic resume builders, our AI provides brutally honest, specific feedback about what's actually wrong 
-                        with your resume. We focus on real issues that cost you interviews: poor formatting, weak bullet points, 
-                        missing keywords, and ATS optimization problems. Plus, it's completely free with no hidden costs.
+                        The roast format makes vague criticism easier to remember, but each joke is paired with a concrete editing direction.
+                        We also publish the <a href="/methodology" class="text-orange-700 underline">scoring limits</a> and
+                        <a href="/resume-roast-examples" class="text-orange-700 underline">before-and-after examples</a> instead of asking you to trust a mystery score.
                     </div>
                 </div>
             </div>
@@ -699,10 +608,10 @@
     <section class="gradient-bg text-white py-20">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl lg:text-4xl font-bold mb-6">
-                Ready to Transform Your Resume?
+                Ready for an honest second opinion?
             </h2>
             <p class="text-xl mb-8 text-blue-100">
-                Join the revolution in resume optimization with instant AI-powered feedback
+                Keep the criticism that makes your resume clearer. Reject anything that would make it less accurate.
             </p>
             <div class="flex justify-center">
                 <button class="bg-white text-orange-600 px-12 py-5 rounded-lg font-semibold text-xl hover:bg-gray-100 transition-colors cta-btn heat-glow">
@@ -722,19 +631,14 @@
                         <span class="text-lg font-bold">RoastMyResume</span>
                     </div>
                     <p class="text-gray-400 mb-4">
-                        Expert resume feedback to help you land more interviews and advance your career.
+                        Automated resume feedback with a public methodology and clear limitations.
                     </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-facebook"></i></a>
-                    </div>
                 </div>
                 
                 <div>
                     <h4 class="font-semibold mb-4">Services</h4>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">Roast My Resume</a></li>
+                        <li><a href="#hero" class="hover:text-white transition-colors">Roast My Resume</a></li>
                         <li><a href="https://resume-boost-ai.onrender.com" target="_blank" class="hover:text-white transition-colors">AI Resume Booster</a></li>
                         <li>
                             <span class="hover:text-white transition-colors">LinkedIn Profile</span>
@@ -751,7 +655,9 @@
                     <h4 class="font-semibold mb-4">Resources</h4>
                     <ul class="space-y-2 text-gray-400">
                         <li><a href="https://www.canva.com/resumes/templates/" target="_blank" class="hover:text-white transition-colors">Resume Templates</a></li>
-                        <li><a href="/blog" class="hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="/resume-roast-examples" class="hover:text-white transition-colors">Resume Roast Examples</a></li>
+                        <li><a href="/blog" class="hover:text-white transition-colors">Resume Guides</a></li>
+                        <li><a href="/methodology" class="hover:text-white transition-colors">How Scoring Works</a></li>
                         <li><a href="https://www.indeed.com/career-advice/finding-a-job" target="_blank" class="hover:text-white transition-colors">Job Search Tips</a></li>
                         <li><a href="https://www.bls.gov/ooh/" target="_blank" class="hover:text-white transition-colors">Industry Guides</a></li>
                     </ul>
@@ -760,10 +666,10 @@
                 <div>
                     <h4 class="font-semibold mb-4">Company</h4>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="about.html" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="/about" class="hover:text-white transition-colors">About Us</a></li>
                         <li><a href="mailto:support@roastmyresume.com" class="hover:text-white transition-colors">Contact</a></li>
-                        <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
-                        <li><a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="/privacy" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms" class="hover:text-white transition-colors">Terms of Service</a></li>
                     </ul>
                 </div>
             </div>
@@ -792,7 +698,7 @@
             <div id="emailGate" class="hidden">
                 <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
                     <h4 class="font-bold text-orange-800 mb-2">Unlock Your Full Roast</h4>
-                    <p class="text-orange-700 text-sm">Enter your email to see the complete analysis</p>
+                    <p class="text-orange-700 text-sm">Enter your email to open the complete analysis</p>
                 </div>
                 
                 <form id="emailForm" class="space-y-3">
@@ -807,6 +713,10 @@
                         >
                         <p id="emailError" class="hidden text-red-600 text-sm mt-1 text-left"></p>
                     </div>
+                    <label class="flex items-start gap-2 text-left text-sm text-gray-600">
+                        <input type="checkbox" id="marketingConsent" class="mt-1 accent-orange-600">
+                        <span>Also send me occasional resume tips and product updates. Optional; unsubscribe any time.</span>
+                    </label>
                     <button 
                         type="submit"
                         id="emailSubmitBtn"
@@ -821,7 +731,7 @@
                 </form>
                 
                 <p class="text-xs text-gray-500 mt-3">
-                    We respect your privacy. No spam, just your roast results.
+                    Your email is stored to unlock results. Marketing is opt-in only. <a href="/privacy" class="underline">Privacy details</a>.
                 </p>
             </div>
         </div>
@@ -835,6 +745,7 @@
     </div>
 
     <!-- JavaScript Modules -->
+    <script src="/public/js/analytics.js"></script>
     <script src="../../public/js/upload-handler.js"></script>
     <script src="../../public/js/progress-modal.js"></script>
     <script src="../../public/js/ui-components.js"></script>

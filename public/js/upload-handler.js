@@ -60,6 +60,7 @@ class UploadHandler {
         
         this.currentFile = file;
         this.updateUploadArea(file);
+        window.rmrTrack?.('file_selected');
     }
 
     updateUploadArea(file) {
@@ -100,7 +101,7 @@ class UploadHandler {
                 
                 <!-- Terms Notice -->
                 <p class="text-center text-sm text-gray-500">
-                    By uploading, you agree to our <a href="/terms.html" class="text-orange-600 hover:underline">Terms of Service</a>
+                    By uploading, you agree to our <a href="/terms" class="text-orange-600 hover:underline">Terms of Service</a>
                 </p>
             </div>
         `;
@@ -153,5 +154,6 @@ function removeResume(event) {
 function roastResume(event) {
     if (event) event.stopPropagation();
     const progressModal = new ProgressModal();
+    window.rmrTrack?.('roast_started');
     progressModal.startRoastProcess(window.uploadHandler.getCurrentFile());
 }

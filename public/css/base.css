@@ -1,4 +1,9 @@
 /* Base styles and utilities */
+html,
+body {
+    overflow-x: hidden;
+}
+
 .gradient-bg { 
     background: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #dc2626 100%); 
 }
@@ -101,4 +106,4 @@
         height: 300px;
         opacity: 0;
     }
-} 
+}

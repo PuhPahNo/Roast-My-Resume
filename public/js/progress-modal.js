@@ -92,6 +92,7 @@ class ProgressModal {
 
         const emailInput = document.getElementById('emailInput');
         const email = emailInput?.value?.trim();
+        const marketingConsent = document.getElementById('marketingConsent')?.checked || false;
 
         if (!email) return;
 
@@ -102,7 +103,7 @@ class ProgressModal {
             const response = await fetch('/api/capture-email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email })
+                body: JSON.stringify({ email, marketingConsent })
             });
 
             const result = await response.json();
@@ -114,10 +115,12 @@ class ProgressModal {
             }
 
             this.emailCaptured = true;
+            window.rmrTrack?.('email_unlocked');
+            if (marketingConsent) window.rmrTrack?.('marketing_subscribed');
             this.setEmailLoading(false);
             this.emailGate.classList.add('hidden');
 
-            await this.waitForRoastAndRedirect(email);
+            await this.waitForRoastAndRedirect();
 
         } catch (error) {
             console.error('Error validating email:', error);
@@ -126,7 +129,7 @@ class ProgressModal {
         }
     }
 
-    async waitForRoastAndRedirect(email) {
+    async waitForRoastAndRedirect() {
         if (this.progressText) {
             this.progressText.textContent = 'Processing with AI...';
         }
@@ -147,6 +150,7 @@ class ProgressModal {
             this.hide();
 
             this.roastResult.success = true;
+            window.rmrTrack?.('roast_completed');
             localStorage.setItem('roastData', JSON.stringify(this.roastResult));
             window.location.href = 'roast-result.html';
 
@@ -208,6 +212,7 @@ class ProgressModal {
                 this.hide();
 
                 this.roastResult.success = true;
+                window.rmrTrack?.('roast_completed');
                 localStorage.setItem('roastData', JSON.stringify(this.roastResult));
                 window.location.href = 'roast-result.html';
             } catch (error) {

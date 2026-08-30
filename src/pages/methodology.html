@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>How Our Resume Roast Works | RoastMyResume Methodology</title>
+    <meta name="description" content="See exactly what RoastMyResume reads, how its four scores work, what the AI can assess, and what it cannot know from a resume alone.">
+    <link rel="canonical" href="https://www.roast-my-resume.com/methodology">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" href="/public/assets/favicon.png" type="image/png">
+    <meta property="og:title" content="How the RoastMyResume Review Works">
+    <meta property="og:description" content="A plain-English explanation of our parser, scoring rubric, limitations, and data handling.">
+    <meta property="og:image" content="https://www.roast-my-resume.com/public/assets/og-image.png">
+    <meta property="og:url" content="https://www.roast-my-resume.com/methodology">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/public/css/tailwind.css">
+    <link rel="stylesheet" href="/public/css/main.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "name": "RoastMyResume review methodology",
+      "url": "https://www.roast-my-resume.com/methodology",
+      "description": "How RoastMyResume extracts resume text, generates feedback, calculates scores, and handles uploaded files.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Roast My Resume",
+        "url": "https://www.roast-my-resume.com/"
+      }
+    }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans text-gray-900">
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2 font-bold text-xl"><i class="fas fa-fire text-orange-500" aria-hidden="true"></i> RoastMyResume</a>
+            <div class="flex items-center gap-5 text-sm font-medium">
+                <a href="/resume-roast-examples" class="text-gray-600 hover:text-orange-600">Examples</a>
+                <a href="/blog" class="text-gray-600 hover:text-orange-600">Guides</a>
+                <a href="/#hero" class="text-orange-600">Roast my resume</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <header class="bg-white border-b border-gray-200">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+                <p class="text-sm font-semibold uppercase tracking-wide text-orange-600 mb-3">Our methodology</p>
+                <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-5">What the roast can see—and what it cannot</h1>
+                <p class="text-xl text-gray-600 leading-relaxed">RoastMyResume is an automated second opinion on the words and structure in your resume. It is not a recruiter, a visual design audit, or a promise that an employer will call.</p>
+                <p class="text-sm text-gray-500 mt-6">Maintained by RoastMyResume · Last reviewed August 30, 2026</p>
+            </div>
+        </header>
+
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 py-14 space-y-14">
+            <section>
+                <h2 class="text-3xl font-bold mb-5">What happens after you upload</h2>
+                <ol class="space-y-5 text-lg text-gray-700 leading-relaxed">
+                    <li class="flex gap-4"><span class="font-bold text-orange-600">1.</span><span>The server accepts a PDF, DOCX, or plain-text file and extracts selectable text. It does not take a screenshot of the page.</span></li>
+                    <li class="flex gap-4"><span class="font-bold text-orange-600">2.</span><span>The extracted text is sent to a general-purpose language model through Groq. The model receives instructions to critique only the information present in the resume and not invent missing facts.</span></li>
+                    <li class="flex gap-4"><span class="font-bold text-orange-600">3.</span><span>The response is checked against a fixed output structure before it is shown. The uploaded file is then removed from the application server's temporary storage.</span></li>
+                </ol>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold mb-6">How the four scores work</h2>
+                <div class="grid sm:grid-cols-2 gap-5">
+                    <div class="bg-white border border-gray-200 rounded-xl p-6"><h3 class="font-bold text-xl mb-2">Overall</h3><p class="text-gray-600">A combined judgment of clarity, evidence, organization, and readiness. It is a review score, not a hiring probability.</p></div>
+                    <div class="bg-white border border-gray-200 rounded-xl p-6"><h3 class="font-bold text-xl mb-2">Content</h3><p class="text-gray-600">Rewards clear ownership, relevant detail, concrete outcomes, and numbers that are already in the resume.</p></div>
+                    <div class="bg-white border border-gray-200 rounded-xl p-6"><h3 class="font-bold text-xl mb-2">Format and structure</h3><p class="text-gray-600">Looks at section order and text organization after extraction. It cannot judge margins, font choices, color, or visual balance.</p></div>
+                    <div class="bg-white border border-gray-200 rounded-xl p-6"><h3 class="font-bold text-xl mb-2">General ATS readability</h3><p class="text-gray-600">Checks conventional headings, chronology, readable text, and role-relevant language. It does not test your file inside every employer's software.</p></div>
+                </div>
+            </section>
+
+            <section class="bg-orange-50 border border-orange-200 rounded-2xl p-7 sm:p-9">
+                <h2 class="text-3xl font-bold mb-4">The important limitations</h2>
+                <ul class="list-disc pl-6 space-y-3 text-lg text-gray-700">
+                    <li>No job description is supplied, so the tool cannot calculate a true job-match score or know which exact keywords an employer values.</li>
+                    <li>Text extraction can reveal broken reading order, but it cannot prove how every applicant tracking system will parse the original file.</li>
+                    <li>The model does not know the context behind a layoff, career change, confidential result, or deliberately omitted detail.</li>
+                    <li>Scores can vary slightly between runs. Use the specific criticism, not a one-point score change, to decide what to edit.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold mb-5">Editorial standard</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-4">Our guides are maintained by RoastMyResume. We do not invent a staff recruiter or pretend the model was trained on a private collection of successful resumes. Product claims are checked against the live application, and factual career guidance is sourced where a reliable public reference exists.</p>
+                <p class="text-lg text-gray-700 leading-relaxed">For practical resume guidance, we use sources such as the U.S. Department of Labor-sponsored <a href="https://www.careeronestop.org/JobSearch/Resumes/ResumeGuide/work-experience.aspx" class="text-orange-700 underline hover:text-orange-800" rel="noopener">CareerOneStop Resume Guide</a>. For model-provider data handling, see <a href="https://console.groq.com/docs/your-data" class="text-orange-700 underline hover:text-orange-800" rel="noopener">Groq's current data documentation</a>. Our own handling is described in the <a href="/privacy" class="text-orange-700 underline hover:text-orange-800">privacy policy</a>.</p>
+            </section>
+
+            <section class="text-center bg-gray-900 text-white rounded-2xl p-9">
+                <h2 class="text-3xl font-bold mb-3">Use it as a second opinion</h2>
+                <p class="text-gray-300 text-lg mb-7">Keep the useful criticism. Ignore any suggestion that would make your resume less accurate.</p>
+                <a href="/#hero" data-track="cta_clicked" class="inline-flex items-center bg-orange-500 hover:bg-orange-600 text-white font-bold px-7 py-4 rounded-lg">Roast my resume</a>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-8">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 flex flex-wrap gap-5 justify-between text-sm text-gray-600">
+            <span>© 2026 RoastMyResume</span>
+            <div class="flex gap-5"><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+        </div>
+    </footer>
+    <script src="/public/js/analytics.js"></script>
+</body>
+</html>

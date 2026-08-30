@@ -13,6 +13,7 @@ const { extractResumeText, isSupportedResumeFile } = require('./resume-parser');
 const { DEFAULT_GROQ_MODEL, RETIRED_GROQ_MODELS, resolveGroqModel } = require('./groq-config');
 const { ROAST_RESPONSE_SCHEMA, parseRoastResponse } = require('./roast-output');
 const { getErrorResponse, getGroqErrorCode } = require('./error-response');
+const { normalizeAnalyticsEvent } = require('./analytics');
 
 // Dynamic import for p-queue (ESM module)
 let PQueue;
@@ -72,10 +73,35 @@ async function initDB() {
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         `);
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS analytics_daily (
+                event_date DATE NOT NULL DEFAULT CURRENT_DATE,
+                event_name VARCHAR(40) NOT NULL,
+                page_path VARCHAR(240) NOT NULL,
+                landing_path VARCHAR(240) NOT NULL,
+                traffic_source VARCHAR(80) NOT NULL,
+                total BIGINT NOT NULL DEFAULT 1,
+                updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (event_date, event_name, page_path, landing_path, traffic_source)
+            )
+        `);
         console.log("Database initialized successfully");
     } catch (error) {
         console.error("Error initializing database:", error);
     }
+}
+
+async function recordAnalyticsEvent(event) {
+    if (!pool) return;
+
+    await pool.query(
+        `INSERT INTO analytics_daily
+            (event_date, event_name, page_path, landing_path, traffic_source, total, updated_at)
+         VALUES (CURRENT_DATE, $1, $2, $3, $4, 1, CURRENT_TIMESTAMP)
+         ON CONFLICT (event_date, event_name, page_path, landing_path, traffic_source)
+         DO UPDATE SET total = analytics_daily.total + 1, updated_at = CURRENT_TIMESTAMP`,
+        [event.eventName, event.pagePath, event.landingPath, event.trafficSource]
+    );
 }
 
 async function saveEmail(email) {
@@ -86,7 +112,7 @@ async function saveEmail(email) {
         const existingEmail = await pool.query("SELECT email FROM emails WHERE email = $1", [email]);
         
         if (existingEmail.rows.length > 0) {
-            console.log(`Email ${email} already exists in database`);
+            console.log('Email already exists in database');
             return { success: true, message: "Email already registered" };
         }
         
@@ -95,7 +121,7 @@ async function saveEmail(email) {
             [email, new Date()]
         );
         
-        console.log(`Email ${email} saved successfully to database`);
+        console.log('Email saved successfully to database');
         return { success: true, message: "Email saved successfully" };
     } catch (error) {
         console.error("Error saving email to database:", error);
@@ -144,7 +170,7 @@ async function upsertEmailOctopusContact(email) {
         }
 
         const data = await response.json();
-        console.log(`EmailOctopus upsert success for ${email} (id: ${data.id})`);
+        console.log(`EmailOctopus upsert succeeded (contact id: ${data.id})`);
         return { success: true, message: 'Contact upserted' };
     } catch (error) {
         console.error('EmailOctopus network error:', error.message);
@@ -212,6 +238,13 @@ const emailLimiter = rateLimit({
     windowMs: 1 * 60 * 1000,
     max: 10,
     message: { success: false, message: 'Too many requests. Please try again later.' }
+});
+
+const analyticsLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000,
+    max: 120,
+    standardHeaders: true,
+    legacyHeaders: false
 });
 
 // --- Middleware ---
@@ -294,24 +327,32 @@ app.get('/', (req, res) => {
 });
 
 app.get('/index.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages', 'index.html'));
+    res.redirect(301, '/');
 });
 
-app.get('/about.html', (req, res) => {
+app.get('/about', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'about.html'));
 });
 
-app.get('/contact.html', (req, res) => {
+app.get('/about.html', (req, res) => res.redirect(301, '/about'));
+
+app.get('/contact', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'contact.html'));
 });
 
-app.get('/privacy.html', (req, res) => {
+app.get('/contact.html', (req, res) => res.redirect(301, '/contact'));
+
+app.get('/privacy', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'privacy.html'));
 });
 
-app.get('/terms.html', (req, res) => {
+app.get('/privacy.html', (req, res) => res.redirect(301, '/privacy'));
+
+app.get('/terms', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'terms.html'));
 });
+
+app.get('/terms.html', (req, res) => res.redirect(301, '/terms'));
 
 app.get('/roast-result.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'roast-result.html'));
@@ -332,10 +373,32 @@ app.get('/blog/:slug', (req, res) => {
     }
 });
 
+app.get('/resume-roast-examples', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', 'resume-roast-examples.html'));
+});
+
+app.get('/methodology', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', 'methodology.html'));
+});
+
+app.post('/api/analytics/event', analyticsLimiter, async (req, res) => {
+    const event = normalizeAnalyticsEvent(req.body);
+    if (!event) return res.status(400).json({ success: false });
+
+    try {
+        await recordAnalyticsEvent(event);
+        return res.status(202).json({ success: true });
+    } catch (error) {
+        console.warn('Analytics event could not be recorded:', error.message);
+        return res.status(202).json({ success: true });
+    }
+});
+
 // --- Email Capture API ---
 app.post('/api/capture-email', emailLimiter, async (req, res) => {
     try {
-        const { email } = req.body;
+        const { email, marketingConsent = false } = req.body;
+        const hasMarketingConsent = marketingConsent === true;
 
         const validation = await validateEmail(email);
         if (!validation.valid) {
@@ -347,7 +410,9 @@ app.post('/api/capture-email', emailLimiter, async (req, res) => {
         // Save to PostgreSQL (local backup) and EmailOctopus in parallel
         const [dbResult, eoResult] = await Promise.all([
             saveEmail(normalizedEmail),
-            upsertEmailOctopusContact(normalizedEmail)
+            hasMarketingConsent
+                ? upsertEmailOctopusContact(normalizedEmail)
+                : Promise.resolve({ success: true, message: 'Marketing consent not provided' })
         ]);
 
         if (!eoResult.success) {
@@ -530,12 +595,6 @@ app.post('/api/roast', roastLimiter, upload.single('resume'), async (req, res) =
     }
 
     const filePath = req.file.path;
-    const email = req.body.email;
-    
-    if (email) {
-        console.log('Email provided for resume roast:', email);
-    }
-
     // Check if queue is initialized
     if (!roastQueue) {
         cleanupFile(filePath);
