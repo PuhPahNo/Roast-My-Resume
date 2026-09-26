@@ -41,7 +41,8 @@ Run the build before committing any HTML or Tailwind-class change. The compiled 
 2. The server extracts readable text and sends that text to Groq.
 3. The model response is validated against a strict schema and sanitized before rendering.
 4. The temporary upload is removed when the request finishes or errors.
-5. An email is stored in PostgreSQL to unlock full results. EmailOctopus receives the address only when the optional marketing checkbox is selected.
+5. The extracted text is returned to the browser with the roast. If the user asks for Resume Boost, the browser posts that text (and an optional job description) to `/api/boost`, which shares the roast's Groq queue. The server stores neither.
+6. An email is stored in PostgreSQL to unlock full results. EmailOctopus receives the address only when the optional marketing checkbox is selected.
 
 Do not describe the ATS score as a simulation of an employer's applicant-tracking system. The model receives extracted text, not a rendered page or job description. The public methodology and privacy pages document these boundaries.
 
@@ -68,6 +69,7 @@ ORDER BY event_date DESC, landing_path, event_name;
 - `/privacy` and `/terms` — current policies
 - `/api/health` — model and deployed-revision health check
 - `/api/roast` — resume processing
+- `/api/boost` — paste-ready rewrites from the roast's extracted text
 - `/api/capture-email` — email unlock and optional marketing consent
 - `/api/analytics/event` — aggregate event counter
 

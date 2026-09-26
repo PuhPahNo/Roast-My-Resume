@@ -7,7 +7,9 @@ const ALLOWED_EVENTS = new Set([
     'email_unlocked',
     'marketing_subscribed',
     'cooked_check_completed',
-    'example_shared'
+    'example_shared',
+    'boost_started',
+    'boost_completed'
 ]);
 
 const ALLOWED_SOURCES = new Set([

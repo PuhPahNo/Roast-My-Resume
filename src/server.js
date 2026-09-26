@@ -12,6 +12,15 @@ const dns = require('dns').promises;
 const { extractResumeText, isSupportedResumeFile } = require('./resume-parser');
 const { DEFAULT_GROQ_MODEL, RETIRED_GROQ_MODELS, resolveGroqModel } = require('./groq-config');
 const { ROAST_RESPONSE_SCHEMA, parseRoastResponse } = require('./roast-output');
+const {
+    BOOST_PROMPT,
+    BOOST_QUALITY_GUARDRAILS,
+    BOOST_RESPONSE_SCHEMA,
+    MAX_RESUME_TEXT_LENGTH,
+    buildBoostUserMessage,
+    parseBoostResponse,
+    validateBoostRequest
+} = require('./boost-output');
 const { getErrorResponse, getGroqErrorCode } = require('./error-response');
 const { normalizeAnalyticsEvent } = require('./analytics');
 
@@ -228,6 +237,18 @@ const roastLimiter = rateLimit({
     message: { 
         error: 'Too many requests', 
         details: 'Please wait a minute before roasting another resume. We limit requests to ensure quality service for everyone.',
+        retryAfter: 60
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+const boostLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000,
+    max: 3,
+    message: {
+        error: 'Too many requests',
+        details: 'Please wait a minute before boosting again.',
         retryAfter: 60
     },
     standardHeaders: true,
@@ -644,15 +665,17 @@ app.post('/api/roast', roastLimiter, upload.single('resume'), async (req, res) =
             if (!content) {
                 throw new Error('invalid: No response content from Groq');
             }
-            return content;
+            return { content, resumeText };
         });
 
         // Clean up file after processing
         cleanupFile(filePath);
 
-        const parsedResult = parseRoastResponse(result);
+        const parsedResult = parseRoastResponse(result.content);
 
         // Return response
+        // The extracted text goes back to the browser so an optional boost
+        // can reuse it without re-uploading. The server keeps no copy.
         res.json({ 
             html: parsedResult.html,
             scores: {
@@ -660,7 +683,8 @@ app.post('/api/roast', roastLimiter, upload.single('resume'), async (req, res) =
                 content: parsedResult.contentScore,
                 format: parsedResult.formatScore,
                 ats: parsedResult.atsScore
-            }
+            },
+            resumeText: result.resumeText.length <= MAX_RESUME_TEXT_LENGTH ? result.resumeText : null
         });
 
     } catch (error) {
@@ -675,6 +699,76 @@ app.post('/api/roast', roastLimiter, upload.single('resume'), async (req, res) =
         cleanupFile(filePath);
 
         // Return user-friendly error
+        const errorResponse = getErrorResponse(error);
+        res.status(errorResponse.status).json({
+            error: errorResponse.error,
+            details: errorResponse.details,
+            retryAfter: errorResponse.retryAfter
+        });
+    }
+});
+
+// --- Resume Boost Endpoint ---
+app.post('/api/boost', boostLimiter, async (req, res) => {
+    const request = validateBoostRequest(req.body);
+    if (request.error) {
+        return res.status(400).json({ error: 'Invalid request', details: request.error });
+    }
+
+    if (!roastQueue) {
+        return res.status(503).json({
+            error: 'Service starting up',
+            details: 'Please try again in a few seconds.'
+        });
+    }
+
+    // Boosts share the Groq quota with roasts, so they share the same queue.
+    const queueSize = roastQueue.size + roastQueue.pending;
+    if (queueSize > 1) {
+        return res.status(503).json({
+            error: 'Service busy',
+            details: `We're processing ${queueSize} resumes right now. Please try again in a minute.`,
+            retryAfter: 60
+        });
+    }
+
+    try {
+        const content = await roastQueue.add(async () => {
+            const completion = await groq.chat.completions.create({
+                model: groqModel,
+                temperature: 0.4,
+                max_completion_tokens: 5000,
+                // Checking each rewrite against its source needs more
+                // reasoning than the roast; low effort let invented claims through.
+                reasoning_effort: 'medium',
+                reasoning_format: 'hidden',
+                response_format: {
+                    type: 'json_schema',
+                    json_schema: BOOST_RESPONSE_SCHEMA
+                },
+                messages: [
+                    { role: "system", content: BOOST_PROMPT },
+                    { role: "developer", content: BOOST_QUALITY_GUARDRAILS },
+                    { role: "user", content: buildBoostUserMessage(request.resumeText, request.jobDescription) }
+                ]
+            });
+
+            const content = completion.choices?.[0]?.message?.content;
+            if (!content) {
+                throw new Error('invalid: No response content from Groq');
+            }
+            return content;
+        });
+
+        res.json(parseBoostResponse(content, { jobDescription: request.jobDescription }));
+    } catch (error) {
+        console.error('--- ERROR DURING BOOST ---');
+        console.error('Timestamp:', new Date().toISOString());
+        console.error('Error status:', error.status || 'internal');
+        console.error('Error code:', getGroqErrorCode(error) || 'unknown');
+        if (!error.status) console.error('Internal error:', error.message);
+        console.error('--- END ERROR REPORT ---');
+
         const errorResponse = getErrorResponse(error);
         res.status(errorResponse.status).json({
             error: errorResponse.error,

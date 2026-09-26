@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Initialize roast tabs functionality
                 initializeRoastTabs();
+
+                window.ResumeBoost?.init(data.resumeText);
                 
                 // Scroll to top smoothly
                 window.scrollTo({ top: 0, behavior: 'smooth' });
