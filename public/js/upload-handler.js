@@ -109,14 +109,15 @@ class UploadHandler {
 
     resetUploadArea() {
         if (!this.uploadArea) return;
-        
+
+        const documentLabel = this.uploadArea.dataset.documentLabel || 'resume';
         this.uploadArea.innerHTML = `
             <div class="space-y-6">
                 <div class="w-24 h-24 mx-auto bg-orange-100 rounded-full flex items-center justify-center">
                     <i class="fas fa-file-pdf text-4xl text-orange-600"></i>
                 </div>
                 <div>
-                    <p class="text-xl font-semibold text-gray-700">Drop your resume here</p>
+                    <p class="text-xl font-semibold text-gray-700">Drop your ${documentLabel} here</p>
                     <p class="text-lg text-gray-500">or click to browse</p>
                 </div>
                 <p class="text-base text-gray-400">PDF, DOCX, or TXT up to 10MB</p>

@@ -8,6 +8,7 @@ const origin = 'https://www.roast-my-resume.com';
 
 const pages = [
   ['/', 'src/pages/index.html'],
+  ['/roast-my-cv', 'src/pages/roast-my-cv.html'],
   ['/resume-roast-examples', 'src/pages/resume-roast-examples.html'],
   ['/methodology', 'src/pages/methodology.html'],
   ['/about', 'src/pages/about.html'],
@@ -23,8 +24,8 @@ const pages = [
   ['/blog/is-my-resume-cooked', 'src/pages/blog/is-my-resume-cooked.html'],
   ['/blog/what-is-a-resume-roast', 'src/pages/blog/what-is-a-resume-roast.html'],
   ['/blog/ai-resume-roaster', 'src/pages/blog/ai-resume-roaster.html'],
-  ['/blog/roast-my-cv', 'src/pages/blog/roast-my-cv.html'],
-  ['/blog/resume-red-flags', 'src/pages/blog/resume-red-flags.html']
+  ['/blog/resume-red-flags', 'src/pages/blog/resume-red-flags.html'],
+  ['/blog/resume-bullet-points-before-and-after', 'src/pages/blog/resume-bullet-points-before-and-after.html']
 ];
 
 function gitOutput(args) {

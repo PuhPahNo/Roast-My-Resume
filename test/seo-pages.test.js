@@ -6,6 +6,7 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const pageFiles = [
   'src/pages/index.html',
+  'src/pages/roast-my-cv.html',
   'src/pages/resume-roast-examples.html',
   'src/pages/methodology.html',
   'src/pages/about.html',
@@ -64,5 +65,6 @@ test('sitemap contains each canonical indexable URL once', () => {
   assert.equal(new Set(urls).size, urls.length);
   assert.ok(urls.includes('https://www.roast-my-resume.com/resume-roast-examples'));
   assert.ok(urls.includes('https://www.roast-my-resume.com/methodology'));
+  assert.ok(urls.includes('https://www.roast-my-resume.com/roast-my-cv'));
   assert.doesNotMatch(sitemap, /<changefreq>|<priority>|\.html<\/loc>/);
 });

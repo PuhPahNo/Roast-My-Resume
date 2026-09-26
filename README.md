@@ -44,7 +44,7 @@ Run the build before committing any HTML or Tailwind-class change. The compiled 
 5. The extracted text is returned to the browser with the roast. If the user asks for Resume Boost, the browser posts that text (and an optional job description) to `/api/boost`, which shares the roast's Groq queue. The server stores neither.
 6. An email is stored in PostgreSQL to unlock full results. EmailOctopus receives the address only when the optional marketing checkbox is selected.
 
-Do not describe the ATS score as a simulation of an employer's applicant-tracking system. The model receives extracted text, not a rendered page or job description. The public methodology and privacy pages document these boundaries.
+Do not describe the ATS score as a simulation of an employer's applicant-tracking system. The roast receives extracted text, not a rendered page or job description; only the optional boost sees a job description. The public methodology and privacy pages document these boundaries.
 
 ## Aggregate measurement
 
@@ -63,6 +63,7 @@ ORDER BY event_date DESC, landing_path, event_name;
 ## Main routes
 
 - `/` — upload and product page
+- `/roast-my-cv` — CV landing page with its own upload box (`/blog/roast-my-cv` redirects here)
 - `/resume-roast-examples` — synthetic before-and-after examples
 - `/methodology` — processing, scoring, and limitations
 - `/blog` — resume guides

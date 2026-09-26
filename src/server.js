@@ -379,7 +379,14 @@ app.get('/roast-result.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'roast-result.html'));
 });
 
+app.get('/roast-my-cv', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', 'roast-my-cv.html'));
+});
+
 // --- Blog Routes ---
+// The CV guide became a standalone landing page with its own upload box.
+app.get('/blog/roast-my-cv', (req, res) => res.redirect(301, '/roast-my-cv'));
+
 app.get('/blog', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'blog', 'index.html'));
 });

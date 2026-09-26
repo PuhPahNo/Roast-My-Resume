@@ -2,7 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.roast-my-resume.com/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-09-26</lastmod>
+  </url>
+  <url>
+    <loc>https://www.roast-my-resume.com/roast-my-cv</loc>
+    <lastmod>2026-09-26</lastmod>
   </url>
   <url>
     <loc>https://www.roast-my-resume.com/resume-roast-examples</loc>
@@ -10,7 +14,7 @@
   </url>
   <url>
     <loc>https://www.roast-my-resume.com/methodology</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-09-26</lastmod>
   </url>
   <url>
     <loc>https://www.roast-my-resume.com/about</loc>
@@ -30,7 +34,7 @@
   </url>
   <url>
     <loc>https://www.roast-my-resume.com/blog</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-09-26</lastmod>
   </url>
   <url>
     <loc>https://www.roast-my-resume.com/blog/why-no-interviews</loc>
@@ -42,11 +46,11 @@
   </url>
   <url>
     <loc>https://www.roast-my-resume.com/blog/how-long-should-resume-be</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-09-26</lastmod>
   </url>
   <url>
     <loc>https://www.roast-my-resume.com/blog/resume-summary-examples</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-09-26</lastmod>
   </url>
   <url>
     <loc>https://www.roast-my-resume.com/blog/career-gap-resume</loc>
@@ -65,11 +69,11 @@
     <lastmod>2026-08-30</lastmod>
   </url>
   <url>
-    <loc>https://www.roast-my-resume.com/blog/roast-my-cv</loc>
+    <loc>https://www.roast-my-resume.com/blog/resume-red-flags</loc>
     <lastmod>2026-08-30</lastmod>
   </url>
   <url>
-    <loc>https://www.roast-my-resume.com/blog/resume-red-flags</loc>
-    <lastmod>2026-08-30</lastmod>
+    <loc>https://www.roast-my-resume.com/blog/resume-bullet-points-before-and-after</loc>
+    <lastmod>2026-09-26</lastmod>
   </url>
 </urlset>

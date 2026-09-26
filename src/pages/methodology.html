@@ -51,7 +51,7 @@
                 <p class="text-sm font-semibold uppercase tracking-wide text-orange-600 mb-3">Our methodology</p>
                 <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-5">What the roast can see—and what it cannot</h1>
                 <p class="text-xl text-gray-600 leading-relaxed">RoastMyResume is an automated second opinion on the words and structure in your resume. It is not a recruiter, a visual design audit, or a promise that an employer will call.</p>
-                <p class="text-sm text-gray-500 mt-6">Maintained by RoastMyResume · Last reviewed August 30, 2026</p>
+                <p class="text-sm text-gray-500 mt-6">Maintained by RoastMyResume · Last reviewed September 26, 2026</p>
             </div>
         </header>
 
@@ -63,6 +63,16 @@
                     <li class="flex gap-4"><span class="font-bold text-orange-600">2.</span><span>The extracted text is sent to a general-purpose language model through Groq. The model receives instructions to critique only the information present in the resume and not invent missing facts.</span></li>
                     <li class="flex gap-4"><span class="font-bold text-orange-600">3.</span><span>The response is checked against a fixed output structure before it is shown. The uploaded file is then removed from the application server's temporary storage.</span></li>
                 </ol>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold mb-5">How Resume Boost rewrites work</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-4">Below each roast, you can ask for paste-ready fixes. The text already extracted from your resume is sent back to the model, with an optional job description you paste in. It returns a rewritten summary, before-and-after bullet rewrites, three structural fixes, and, when a job description is supplied, the posting's keywords your resume covers or misses.</p>
+                <ul class="list-disc pl-6 space-y-3 text-lg text-gray-700">
+                    <li>The model is told to rewrite only facts that are already in the resume. A number or result it cannot know is left in [brackets] for you to fill in or delete.</li>
+                    <li>A second instruction pass checks each rewrite against its original and removes invented claims. It is not perfect, so read every line before you paste it.</li>
+                    <li>Keywords are filtered on our server so only terms that literally appear in the job description are shown.</li>
+                </ul>
             </section>
 
             <section>
@@ -78,7 +88,7 @@
             <section class="bg-orange-50 border border-orange-200 rounded-2xl p-7 sm:p-9">
                 <h2 class="text-3xl font-bold mb-4">The important limitations</h2>
                 <ul class="list-disc pl-6 space-y-3 text-lg text-gray-700">
-                    <li>No job description is supplied, so the tool cannot calculate a true job-match score or know which exact keywords an employer values.</li>
+                    <li>The roast does not see a job description, so its scores are not a job-match score. Resume Boost can list a posting's keywords, but it cannot know how a particular employer weighs them.</li>
                     <li>Text extraction can reveal broken reading order, but it cannot prove how every applicant tracking system will parse the original file.</li>
                     <li>The model does not know the context behind a layoff, career change, confidential result, or deliberately omitted detail.</li>
                     <li>Scores can vary slightly between runs. Use the specific criticism, not a one-point score change, to decide what to edit.</li>
